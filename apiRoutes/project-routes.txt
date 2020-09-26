@@ -1,0 +1,31 @@
+create project:
+
+localhost/valuation-api/project/create.php  ----POST request
+{
+    "project_title" : "project title",
+    "project_desc" : "project description",
+    "img_path" : "../uploads/project.jpg"
+}
+
+update project:
+localhost/valuation-api/project/update.php  ----POST request
+{
+    "project_title" : "project title 1",
+    "project_desc" : "project description",
+    "img_path" : "../uploads/project.jpg",
+    "id" : 1
+}
+
+
+delete project:
+localhost/valuation-api/project/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all project list:
+localhost/valuation-api/project/get_all.php   ---- GET request
+
+get project by id
+localhost/valuation-api/project/get_project.php?id=1    --- GET request

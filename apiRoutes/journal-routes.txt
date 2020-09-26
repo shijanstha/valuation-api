@@ -1,0 +1,33 @@
+create journal:
+
+localhost/valuation-api/journal/create.php  ----POST request
+{
+    "title" : "journal 1",
+    "summary" : "summary",
+    "description" : "desc",
+    "img_path" : "/uploads/shijan.jpg"
+}
+
+update journal:
+localhost/valuation-api/journal/update.php  ----POST request
+{
+    "title" : "journal 1",
+    "summary" : "summary",
+    "description" : "desc",
+    "img_path" : "/uploads/shijan.jpg",
+    "id" : "1"
+}
+
+
+delete journal:
+localhost/valuation-api/journal/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all journal list:
+localhost/valuation-api/journal/get_all.php   ---- GET request
+
+get journal by id
+localhost/valuation-api/journal/get_journal.php?id=1    --- GET request

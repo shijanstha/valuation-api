@@ -1,0 +1,26 @@
+Add Image:
+localhost/valuation-api/slider_image/add.php  -- POST request
+{
+    "slider_desc" : "image",
+    "img_path" : "/uploads/shijan.jpg"
+}
+
+Update Image:
+localhost/valuation-api/slider_image/update.php  -- POST request
+{
+    "slider_desc" : "shijan photo",
+    "img_path" : "/uploads/shijan.jpg",
+    "id" : "1"
+}
+
+delete image:
+localhost/valuation-api/slider_image/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+get all images:
+localhost/valuation-api/slider_image/get_all.php    ---- GET request
+
+get image by id:
+localhost/valuation-api/slider_image/get_image.php?id=1  ----GET  request

@@ -1,0 +1,36 @@
+create vacancy:
+localhost/valuation-api/vacancy/create.php  ----POST request
+{
+    "vacancy_title" : "Java developer",
+    "city" : "Kathmandu",
+    "opening" : "6",
+    "experience" : "2+ years",
+    "service_type" : "full-time",
+    "expiry_dt" : "2020-10-20"
+}
+
+update vacancy:
+localhost/valuation-api/vacancy/update.php  ----POST request
+{
+    "vacancy_title" : "Java developer",
+    "city" : "Kathmandu",
+    "opening" : "6",
+    "experience" : "2+ years",
+    "service_type" : "full-time",
+    "expiry_dt" : "2020-10-20"
+    "id" : 1
+}
+
+
+delete vacancy:
+localhost/valuation-api/vacancy/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all vacancy list:
+localhost/valuation-api/vacancy/get_all.php --- GET request
+
+get vacancy by id
+localhost/valuation-api/vacancy/get_employess.php?id=1    --- GET request

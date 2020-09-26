@@ -1,0 +1,36 @@
+create employee:
+localhost/valuation-api/employee/create.php  ----POST request
+{
+    "employee_name" : "Shijan Shrestha",
+    "position" : "Computer Engineer",
+    "contact_no" : "9801200169",
+    "email" : "shijan0408@gmail.com",
+    "type" : "admin",
+    "img_path" : "../uploads/shijan.jpg"
+}
+
+update employee:
+localhost/valuation-api/employee/update.php  ----POST request
+{
+    "employee_name" : "Shijan Shrestha",
+    "position" : "Computer Engineer",
+    "contact_no" : "9801200169",
+    "email" : "shijan0408@gmail.com",
+    "type" : "admin",
+    "img_path" : "../uploads/shijan.jpg",
+    "id" : 1
+}
+
+
+delete employee:
+localhost/valuation-api/employee/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all employee list:
+localhost/valuation-api/employee/get_all.php --- GET request
+
+get employee by id
+localhost/valuation-api/employee/get_employess.php?id=1    --- GET request

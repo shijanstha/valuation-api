@@ -1,0 +1,35 @@
+create realestate:
+
+localhost/valuation-api/real_estate/create.php  ----POST request
+{
+    "re_name" : "real estate name",
+    "address" : "real estate address",
+    "cost" : "cost",
+    "contact_no" : "12312",
+    "img_path" : "../uploads/real_estate.jpg"
+}
+
+update real_estate:
+localhost/valuation-api/real_estate/update.php  ----POST request
+{
+    "re_name" : "real_estate title",
+    "address" : "real_estate description",
+    "cost" : "1000000",
+    "contact_no" : "9883384949",
+    "img_path" : "../uploads/real_estate.jpg",
+    "id" : 1
+}
+
+
+delete real_estate:
+localhost/valuation-api/real_estate/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all real_estate list:
+localhost/valuation-api/real_estate/get_all.php   ---- GET request
+
+get real_estate by id
+localhost/valuation-api/real_estate/get_realestate.php?id=1    --- GET request
