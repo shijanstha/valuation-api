@@ -33,4 +33,4 @@ get all vacancy list:
 localhost/valuation-api/vacancy/get_all.php --- GET request
 
 get vacancy by id
-localhost/valuation-api/vacancy/get_employess.php?id=1    --- GET request
+localhost/valuation-api/vacancy/get_vacancy.php?id=1    --- GET request

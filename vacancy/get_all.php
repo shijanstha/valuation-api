@@ -45,7 +45,6 @@ if ($num > 0) {
     echo json_encode($vacancy_arr);
 } else {
     http_response_code(404);
-
     echo json_encode(
         array("message" => "No vacancy found.")
     );
