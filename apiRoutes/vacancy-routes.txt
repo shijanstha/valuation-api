@@ -5,6 +5,7 @@ localhost/valuation-api/vacancy/create.php  ----POST request
     "city" : "Kathmandu",
     "opening" : "6",
     "experience" : "2+ years",
+    "vacancy_desc" : "lorem ipsum",
     "service_type" : "full-time",
     "expiry_dt" : "2020-10-20"
 }
@@ -16,8 +17,9 @@ localhost/valuation-api/vacancy/update.php  ----POST request
     "city" : "Kathmandu",
     "opening" : "6",
     "experience" : "2+ years",
+    "vacancy_desc" : "lorem ipsum",
     "service_type" : "full-time",
-    "expiry_dt" : "2020-10-20"
+    "expiry_dt" : "2020-10-20",
     "id" : 1
 }
 

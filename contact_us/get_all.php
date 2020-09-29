@@ -8,45 +8,42 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/journal.php';
+include_once '../objects/contact_us.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$journal = new Journal($db);
+$contactUs = new ContactUs($db);
 
-$stmt = $journal->getAllJournals();
+$stmt = $contactUs->getAllContactUs();
 $num = $stmt->rowCount();
 
 if ($num > 0) {
 
-    $journals_arr = array();
-    $journals_arr["records"] = array();
+    $message_arr = array();
+    $message_arr["records"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $journal_row = array(
-            "journal_id" => $journal_id,
-            "title" => $title,
-            "summary" => $summary,
-            "desc_1" => $desc_1,
-            "desc_2" => $desc_2,
-            "desc_3" => $desc_3,
-            "desc_4" => $desc_4,
-            "img_path" => $img_path
+        $message_row = array(
+            "id" => $id,
+            "name" => $name,
+            "email" => $email,
+            "contact_no" => $contact_no,
+            "message" => $message,
         );
 
-        array_push($journals_arr["records"], $journal_row);
+        array_push($message_arr["records"], $message_row);
     }
 
     http_response_code(200);
-    echo json_encode($journals_arr);
+    echo json_encode($message_arr);
 } else {
     http_response_code(404);
 
     echo json_encode(
-        array("message" => "No journal found.")
+        array("message" => "No message found.")
     );
 }

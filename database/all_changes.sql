@@ -78,3 +78,33 @@ CREATE TABLE `slider_image` (
   `img_path` VARCHAR(255) NULL,
   PRIMARY KEY (`slider_id`));
 -------------------------------
+
+
+ALTER TABLE `journal` 
+ADD COLUMN `desc_2` VARCHAR(1500) NULL DEFAULT NULL AFTER `desc_1`,
+ADD COLUMN `desc_3` VARCHAR(1500) NULL DEFAULT NULL AFTER `desc_2`,
+ADD COLUMN `desc_4` VARCHAR(1500) NULL DEFAULT NULL AFTER `desc_3`,
+CHANGE COLUMN `description` `desc_1` VARCHAR(1500) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `vacancy` 
+ADD COLUMN `vacancy_desc` VARCHAR(2000) NULL AFTER `service_type`;
+
+
+create table contact_us (
+	  id integer primary key auto_increment,
+    name varchar(50),
+    email varchar(60),
+    contact_no varchar(15),
+    message varchar(1000)
+);
+
+CREATE TABLE `testimonial` (
+  `tes_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `paragraph` varchar(2000) DEFAULT NULL,
+  `img_path` varchar(255) DEFAULT NULL,
+  `status` varchar(2) DEFAULT NULL,
+  PRIMARY KEY (`tes_id`)
+)

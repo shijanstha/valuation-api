@@ -4,7 +4,10 @@ localhost/valuation-api/journal/create.php  ----POST request
 {
     "title" : "journal 1",
     "summary" : "summary",
-    "description" : "desc",
+    "desc_1" : "desc",
+    "desc_2" : "desc",
+    "desc_3" : "desc",
+    "desc_4" : "desc",
     "img_path" : "/uploads/shijan.jpg"
 }
 
@@ -13,7 +16,10 @@ localhost/valuation-api/journal/update.php  ----POST request
 {
     "title" : "journal 1",
     "summary" : "summary",
-    "description" : "desc",
+    "desc_1" : "desc",
+    "desc_2" : "desc",
+    "desc_3" : "desc",
+    "desc_4" : "desc",
     "img_path" : "/uploads/shijan.jpg",
     "id" : "1"
 }

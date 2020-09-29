@@ -24,6 +24,7 @@ $vacancy->vacancy_title = $data->vacancy_title;
 $vacancy->city = $data->city;
 $vacancy->opening = $data->opening;
 $vacancy->experience = $data->experience;
+$vacancy->vacancy_desc = $data->vacancy_desc;
 $vacancy->service_type = $data->service_type;
 $vacancy->expiry_dt = $data->expiry_dt;
 

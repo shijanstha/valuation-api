@@ -8,45 +8,43 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/journal.php';
+include_once '../objects/testimonial.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$journal = new Journal($db);
+$testimonial = new Testimonial($db);
 
-$stmt = $journal->getAllJournals();
+$stmt = $testimonial->getRejectedTestimonials();
 $num = $stmt->rowCount();
 
 if ($num > 0) {
 
-    $journals_arr = array();
-    $journals_arr["records"] = array();
+    $testimonials_arr = array();
+    $testimonials_arr["records"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $journal_row = array(
-            "journal_id" => $journal_id,
-            "title" => $title,
-            "summary" => $summary,
-            "desc_1" => $desc_1,
-            "desc_2" => $desc_2,
-            "desc_3" => $desc_3,
-            "desc_4" => $desc_4,
-            "img_path" => $img_path
+        $testimonial_row = array(
+            "tes_id" => $tes_id,
+            "name" => $name,
+            "address" => $address,
+            "paragraph" => $paragraph,
+            "img_path" => $img_path,
+            "status" => $status
         );
 
-        array_push($journals_arr["records"], $journal_row);
+        array_push($testimonials_arr["records"], $testimonial_row);
     }
 
     http_response_code(200);
-    echo json_encode($journals_arr);
+    echo json_encode($testimonials_arr);
 } else {
     http_response_code(404);
 
     echo json_encode(
-        array("message" => "No journal found.")
+        array("message" => "No pending testimonial found.")
     );
 }

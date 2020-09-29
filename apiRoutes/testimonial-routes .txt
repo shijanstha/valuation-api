@@ -1,0 +1,43 @@
+create testimonial:
+
+localhost/valuation-api/testimonial/create.php  ----POST request
+{
+    "name" : "testimonial 1",
+    "address" : "address 1",
+    "paragraph" : "lorem ipsum",
+    "img_path" : "/uploads/shijan.jpg"
+}
+
+update testimonial:
+localhost/valuation-api/testimonial/update.php  ----POST request
+{
+    "name" : "testimonial 1",
+    "address" : "address 1",
+    "paragraph" : "lorem ipsum",
+    "img_path" : "/uploads/shijan.jpg",
+    "status" : "AP"  ("AP", "R", "P")
+    "id" : "1"
+}
+
+
+delete testimonial:
+localhost/valuation-api/testimonial/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all testimonial list:
+localhost/valuation-api/testimonial/get_all.php   ---- GET request
+
+get approved testimonial list:
+localhost/valuation-api/testimonial/get_approved.php   ---- GET request
+
+get pending testimonial list:
+localhost/valuation-api/testimonial/get_pending.php   ---- GET request
+
+get rejected testimonial list:
+localhost/valuation-api/testimonial/get_rejected.php   ---- GET request
+
+get testimonial by id
+localhost/valuation-api/testimonial/get_testimonial.php?id=1    --- GET request

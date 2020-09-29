@@ -6,32 +6,25 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// include database and object files
+// include database and object file
 include_once '../config/database.php';
-include_once '../objects/journal.php';
+include_once '../objects/contact_us.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$journal = new Journal($db);
+$contactUs = new ContactUs($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$journal->journal_id = $data->id;
+$contactUs->id = $data->id;
 
-$journal->title = $data->title;
-$journal->summary = $data->summary;
-$journal->desc_1 = $data->desc_1;
-$journal->desc_2 = $data->desc_2;
-$journal->desc_3 = $data->desc_3;
-$journal->desc_4 = $data->desc_4;
-$journal->img_path = $data->img_path;
-
-if ($journal->update()) {
+if ($contactUs->delete()) {
     http_response_code(200);
-    echo json_encode(array("message" => "Journal detail updated."));
+    echo json_encode(array("message" => "Message was deleted."));
 } else {
     http_response_code(503);
-    echo json_encode(array("message" => "Unable to update journal detail."));
+    echo json_encode(array("message" => "Unable to delete message."));
 }
+?>

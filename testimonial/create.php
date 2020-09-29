@@ -9,32 +9,37 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
 
-include_once '../objects/slider_image.php';
+include_once '../objects/testimonial.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$slider = new SliderImage($db);
+$testimonial = new Testimonial($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->img_path)
+    !empty($data->name) &&
+    !empty($data->address) &&
+    !empty($data->paragraph) 
 ) {
 
-    $slider->slider_desc = $data->slider_desc;
-    $slider->img_path = $data->img_path;
+    $testimonial->name = $data->name;
+    $testimonial->address = $data->address;
+    $testimonial->paragraph = $data->paragraph;
+    $testimonial->img_path = $data->img_path;
 
-    if ($slider->addImageToSlider()) {
+    if ($testimonial->createTestimonial()) {
         http_response_code(201);
-        echo json_encode(array("message" => "Image was added."));
+        echo json_encode(array("message" => "Testimonial was created."));
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Unable to add image."));
+        echo json_encode(array("message" => "Unable to create testimonial."));
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Unable to add image."));
+    echo json_encode(array("message" => "Unable to create testimonial. Data is incomplete."));
 }
+?>

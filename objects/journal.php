@@ -11,7 +11,10 @@ class Journal
     public $journal_id;
     public $title;
     public $summary;
-    public $description;
+    public $desc_1;
+    public $desc_2;
+    public $desc_3;
+    public $desc_4;
     public $img_path;
 
     // constructor with $db as database connection
@@ -40,25 +43,34 @@ class Journal
     {
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
-                    title = :title, 
-                    summary = :summary, 
-                    description = :description,
-                    img_path = :img_path
+                  title = :title,
+                  summary = :summary,
+                  desc_1 = :desc_1,
+                  desc_2 = :desc_2,
+                  desc_3 = :desc_3,
+                  desc_4 = :desc_4,
+                  img_path = :img_path
                     ";
-
+ 
         $stmt = $this->conn->prepare($query);
 
         //sanitizing for sql injection
         $this->title = htmlspecialchars(strip_tags($this->title));
         $this->summary = htmlspecialchars(strip_tags($this->summary));
-        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->desc_1 = htmlspecialchars(strip_tags($this->desc_1));
+        $this->desc_2 = htmlspecialchars(strip_tags($this->desc_2));
+        $this->desc_3 = htmlspecialchars(strip_tags($this->desc_3));
+        $this->desc_4 = htmlspecialchars(strip_tags($this->desc_4));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         // bind values
-        $stmt->bindParam(":title", $this->title);
-        $stmt->bindParam(":summary", $this->summary);
-        $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":img_path", $this->img_path);
+        $stmt->bindParam(':title', $this->title);
+        $stmt->bindParam(':summary', $this->summary);
+        $stmt->bindParam(':desc_1', $this->desc_1);
+        $stmt->bindParam(':desc_2', $this->desc_2);
+        $stmt->bindParam(':desc_3', $this->desc_3);
+        $stmt->bindParam(':desc_4', $this->desc_4);
+        $stmt->bindParam(':img_path', $this->img_path);
 
         if ($stmt->execute()) {
             return true;
@@ -87,7 +99,10 @@ class Journal
         // set values to object properties
         $this->title = $row['title'];
         $this->summary = $row['summary'];
-        $this->description = $row['description'];
+        $this->desc_1 = $row['desc_1'];
+        $this->desc_2 = $row['desc_2'];
+        $this->desc_3 = $row['desc_3'];
+        $this->desc_4 = $row['desc_4'];
         $this->img_path = $row['img_path'];
         $this->journal_id = $row['journal_id'];
     }
@@ -98,7 +113,10 @@ class Journal
                     SET
                         title = :title,
                         summary = :summary,
-                        description = :description,
+                        desc_1 = :desc_1,
+                        desc_2 = :desc_2,
+                        desc_3 = :desc_3,
+                        desc_4 = :desc_4,
                         img_path = :img_path
                     WHERE journal_id = :journal_id";
 
@@ -107,13 +125,19 @@ class Journal
         $this->journal_id = htmlspecialchars(strip_tags($this->journal_id));
         $this->title = htmlspecialchars(strip_tags($this->title));
         $this->summary = htmlspecialchars(strip_tags($this->summary));
-        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->desc_1 = htmlspecialchars(strip_tags($this->desc_1));
+        $this->desc_2 = htmlspecialchars(strip_tags($this->desc_2));
+        $this->desc_3 = htmlspecialchars(strip_tags($this->desc_3));
+        $this->desc_4 = htmlspecialchars(strip_tags($this->desc_4));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         $stmt->bindParam(':journal_id', $this->journal_id);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':summary', $this->summary);
-        $stmt->bindParam(':description', $this->description);
+        $stmt->bindParam(':desc_1', $this->desc_1);
+        $stmt->bindParam(':desc_2', $this->desc_2);
+        $stmt->bindParam(':desc_3', $this->desc_3);
+        $stmt->bindParam(':desc_4', $this->desc_4);
         $stmt->bindParam(':img_path', $this->img_path);
 
         if ($stmt->execute()) {

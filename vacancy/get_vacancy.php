@@ -27,6 +27,7 @@ if ($vacancy->vacancy_title != null) {
         "vacancy_title" => $vacancy->vacancy_title,
         "city" => $vacancy->city,
         "experience" => $vacancy->experience,
+        "vacancy_desc" => $vacancy->vacancy_desc,
         "opening" => $vacancy->opening,
         "service_type" => $vacancy->service_type,
         "created_dt" => $vacancy->created_dt,

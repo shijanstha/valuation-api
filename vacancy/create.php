@@ -25,6 +25,7 @@ if (
     !empty($data->city) &&
     !empty($data->opening) &&
     !empty($data->experience) &&
+    !empty($data->vacancy_desc) &&
     !empty($data->service_type) &&
     !empty($data->expiry_dt)
 ) {
@@ -33,6 +34,7 @@ if (
     $vacancy->city = $data->city;
     $vacancy->opening = $data->opening;
     $vacancy->experience = $data->experience;
+    $vacancy->vacancy_desc = $data->vacancy_desc;
     $vacancy->service_type = $data->service_type;
     $vacancy->expiry_dt = $data->expiry_dt;
 

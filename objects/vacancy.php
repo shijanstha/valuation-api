@@ -13,6 +13,7 @@ class Vacancy
     public $city;
     public $opening;
     public $experience;
+    public $vacancy_desc;
     public $service_type;
     public $created_dt;
     public $expiry_dt;
@@ -40,7 +41,7 @@ class Vacancy
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
                     vacancy_title= :vacancy_title, city= :city, opening = :opening, experience = :experience, 
-                    service_type = :service_type, expiry_dt = :expiry_dt";
+                    vacancy_desc = :vacancy_desc, service_type = :service_type, expiry_dt = :expiry_dt";
 
         $stmt = $this->conn->prepare($query);
 
@@ -50,6 +51,7 @@ class Vacancy
         $this->city = htmlspecialchars(strip_tags($this->city));
         $this->opening = htmlspecialchars(strip_tags($this->opening));
         $this->experience = htmlspecialchars(strip_tags($this->experience));
+        $this->vacancy_desc = htmlspecialchars(strip_tags($this->vacancy_desc));
         $this->service_type = htmlspecialchars(strip_tags($this->service_type));
         $this->expiry_dt = htmlspecialchars(strip_tags($this->expiry_dt));
 
@@ -58,6 +60,7 @@ class Vacancy
         $stmt->bindParam(":city", $this->city);
         $stmt->bindParam(":opening", $this->opening);
         $stmt->bindParam(":experience", $this->experience);
+        $stmt->bindParam(":vacancy_desc", $this->vacancy_desc);
         $stmt->bindParam(":service_type", $this->service_type);
         $stmt->bindParam(":expiry_dt", $this->expiry_dt);
 
@@ -92,6 +95,7 @@ class Vacancy
         $this->city = $row['city'];
         $this->opening = $row['opening'];
         $this->experience = $row['experience'];
+        $this->vacancy_desc = $row['vacancy_desc'];
         $this->service_type = $row['service_type'];
         $this->created_dt = $row['created_dt'];
         $this->expiry_dt = $row['expiry_dt'];
@@ -105,6 +109,7 @@ class Vacancy
                     city = :city,
                     opening = :opening,
                     experience = :experience,
+                    vacancy_desc = :vacancy_desc,
                     service_type = :service_type,
                     expiry_dt = :expiry_dt
                     WHERE vacancy_id = :vacancy_id";
@@ -115,6 +120,7 @@ class Vacancy
         $this->city = htmlspecialchars(strip_tags($this->city));
         $this->opening = htmlspecialchars(strip_tags($this->opening));
         $this->experience = htmlspecialchars(strip_tags($this->experience));
+        $this->vacancy_desc = htmlspecialchars(strip_tags($this->vacancy_desc));
         $this->service_type = htmlspecialchars(strip_tags($this->service_type));
         $this->expiry_dt = htmlspecialchars(strip_tags($this->expiry_dt));
         $this->vacancy_id = htmlspecialchars(strip_tags($this->vacancy_id));
@@ -123,6 +129,7 @@ class Vacancy
         $stmt->bindParam(':city', $this->city);
         $stmt->bindParam(':opening', $this->opening);
         $stmt->bindParam(':experience', $this->experience);
+        $stmt->bindParam(':vacancy_desc', $this->vacancy_desc);
         $stmt->bindParam(':service_type', $this->service_type);
         $stmt->bindParam(':expiry_dt', $this->expiry_dt);
         $stmt->bindParam(':vacancy_id', $this->vacancy_id);

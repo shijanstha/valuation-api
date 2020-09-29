@@ -21,16 +21,16 @@ $journal = new Journal($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->title) &&
-    !empty($data->summary) &&
-    !empty($data->description) &&
-    !empty($data->img_path)
+    !empty($data->title) 
 ) {
 
-    $journal->title = $data->title;
-    $journal->summary = $data->summary;
-    $journal->description = $data->description;
-    $journal->img_path = $data->img_path;
+$journal->title = $data->title;
+$journal->summary = $data->summary;
+$journal->desc_1 = $data->desc_1;
+$journal->desc_2 = $data->desc_2;
+$journal->desc_3 = $data->desc_3;
+$journal->desc_4 = $data->desc_4;
+$journal->img_path = $data->img_path;
 
     if ($journal->createJournal()) {
         http_response_code(201);
@@ -43,4 +43,3 @@ if (
     http_response_code(400);
     echo json_encode(array("message" => "Unable to create journal. Data is incomplete."));
 }
-?>

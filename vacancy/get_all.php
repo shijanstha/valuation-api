@@ -32,6 +32,7 @@ if ($num > 0) {
             "vacancy_title" => $vacancy_title,
             "city" => $city,
             "experience" => $experience,
+            "vacancy_desc" => $vacancy_desc,
             "opening" => $opening,
             "service_type" => $service_type,
             "created_dt" => $created_dt,

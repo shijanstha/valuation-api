@@ -9,32 +9,35 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
 
-include_once '../objects/slider_image.php';
+include_once '../objects/contact_us.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$slider = new SliderImage($db);
+$contactUs = new ContactUs($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->img_path)
+    !empty($data->name) 
 ) {
 
-    $slider->slider_desc = $data->slider_desc;
-    $slider->img_path = $data->img_path;
+    $contactUs->name = $data->name;
+    $contactUs->email = $data->email;
+    $contactUs->contact_no = $data->contact_no;
+    $contactUs->message = $data->message;
 
-    if ($slider->addImageToSlider()) {
+    if ($contactUs->createContactUs()) {
         http_response_code(201);
-        echo json_encode(array("message" => "Image was added."));
+        echo json_encode(array("message" => "Message was created."));
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Unable to add image."));
+        echo json_encode(array("message" => "Unable to create Message."));
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Unable to add image."));
+    echo json_encode(array("message" => "Unable to create message. Data is incomplete."));
 }
+?>

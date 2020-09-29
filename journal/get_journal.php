@@ -26,7 +26,10 @@ if ($journal->title != null) {
         "journal_id" => $journal->journal_id,
         "title" => $journal->title,
         "summary" => $journal->summary,
-        "description" => $journal->description,
+        "desc_1" => $journal->desc_1,
+        "desc_2" => $journal->desc_2,
+        "desc_3" => $journal->desc_3,
+        "desc_4" => $journal->desc_4,
         "img_path" => $journal->img_path
     );
 
