@@ -8,30 +8,27 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/real_estate.php';
+include_once '../objects/login.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$re = new RealEstate($db);
+$login = new Login($db);
 
-$re->re_id = isset($_GET['id']) ? $_GET['id'] : die();
+$data = json_decode(file_get_contents("php://input"));
 
-$re->fetchRealEstate();
+$login->user_name = $data->user_name;
+$login->password = $data->password;
 
-if ($re->re_name != null) {
-    // create array
-    $re_arr = array(
-        "re_id" => $re->re_id,
-        "address" => $re->address,
-        "cost" => $re->cost,
-        "img_path" => $re->img_path
-    );
 
+$stmt = $login->checkLogin();
+$num = $stmt->rowCount();
+
+if ($num > 0) {
     http_response_code(200);
-    echo json_encode($re_arr);
+    echo json_encode(array("message" => "Login Successful."));
 } else {
     http_response_code(404);
-    echo json_encode(array("message" => "Real Estate does not exist."));
+    echo json_encode(array("message" => "Invalid username or password."));
 }

@@ -9,10 +9,8 @@ class RealEstate
 
     // object properties
     public $re_id;
-    public $re_name;
     public $address;
     public $cost;
-    public $contact_no;
     public $img_path;
 
     // constructor with $db as database connection
@@ -41,27 +39,21 @@ class RealEstate
     {
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
-                    re_name = :re_name,
                     address = :address,
                     cost = :cost,
-                    contact_no = :contact_no,
                     img_path = :img_path
                     ";
 
         $stmt = $this->conn->prepare($query);
 
         //sanitizing for sql injection
-        $this->re_name = htmlspecialchars(strip_tags($this->re_name));
         $this->address = htmlspecialchars(strip_tags($this->address));
         $this->cost = htmlspecialchars(strip_tags($this->cost));
-        $this->contact_no = htmlspecialchars(strip_tags($this->contact_no));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         // bind values
-        $stmt->bindParam(":re_name", $this->re_name);
         $stmt->bindParam(":address", $this->address);
         $stmt->bindParam(":cost", $this->cost);
-        $stmt->bindParam(":contact_no", $this->contact_no);
         $stmt->bindParam(":img_path", $this->img_path);
 
         if ($stmt->execute()) {
@@ -90,10 +82,8 @@ class RealEstate
 
         // set values to object properties
         $this->re_id = $row['re_id'];
-        $this->re_name = $row['re_name'];
         $this->address = $row['address'];
         $this->cost = $row['cost'];
-        $this->contact_no = $row['contact_no'];
         $this->img_path = $row['img_path'];
     }
 
@@ -101,10 +91,8 @@ class RealEstate
     {
         $query = "UPDATE " . $this->table_name . "
                     SET
-                        re_name = :re_name,
                         address = :address,
                         cost = :cost,
-                        contact_no = :contact_no,
                         img_path = :img_path
 
                     WHERE re_id = :re_id";
@@ -112,17 +100,13 @@ class RealEstate
         $stmt = $this->conn->prepare($query);
 
         $this->re_id = htmlspecialchars(strip_tags($this->re_id));
-        $this->re_name = htmlspecialchars(strip_tags($this->re_name));
         $this->address = htmlspecialchars(strip_tags($this->address));
         $this->cost = htmlspecialchars(strip_tags($this->cost));
-        $this->contact_no = htmlspecialchars(strip_tags($this->contact_no));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         $stmt->bindParam(':re_id', $this->re_id);
-        $stmt->bindParam(':re_name', $this->re_name);
         $stmt->bindParam(':address', $this->address);
         $stmt->bindParam(':cost', $this->cost);
-        $stmt->bindParam(':contact_no', $this->contact_no);
         $stmt->bindParam(':img_path', $this->img_path);
 
         if ($stmt->execute()) {

@@ -8,41 +8,39 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/real_estate.php';
+include_once '../objects/login.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$re = new RealEstate($db);
+$login = new Login($db);
 
-$stmt = $re->getAllRealEstate();
+$stmt = $login->getAllUsers();
 $num = $stmt->rowCount();
 
 if ($num > 0) {
 
-    $re_arr = array();
-    $re_arr["records"] = array();
+    $user_arr = array();
+    $user_arr["records"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $re_row = array(
-            "re_id" => $re_id,
-            "address" => $address,
-            "cost" => $cost,
-            "img_path" => $img_path
+        $user_row = array(
+            "id" => $id,
+            "user_name" => $user_name,
+            "password" => $password
         );
 
-        array_push($re_arr["records"], $re_row);
+        array_push($user_arr["records"], $user_row);
     }
 
     http_response_code(200);
-    echo json_encode($re_arr);
+    echo json_encode($user_arr);
 } else {
     http_response_code(404);
-
     echo json_encode(
-        array("message" => "No Real Estate found.")
+        array("message" => "No user found.")
     );
 }

@@ -8,30 +8,28 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/real_estate.php';
+include_once '../objects/login.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$re = new RealEstate($db);
+$login = new Login($db);
 
-$re->re_id = isset($_GET['id']) ? $_GET['id'] : die();
+$login->id = isset($_GET['id']) ? $_GET['id'] : die();
 
-$re->fetchRealEstate();
+$login->fetchUser();
 
-if ($re->re_name != null) {
+if ($login->user_name != null) {
     // create array
-    $re_arr = array(
-        "re_id" => $re->re_id,
-        "address" => $re->address,
-        "cost" => $re->cost,
-        "img_path" => $re->img_path
+    $login_arr = array(
+        "user_name" => $login->user_name,
+        "password" => $login->password
     );
 
     http_response_code(200);
-    echo json_encode($re_arr);
+    echo json_encode($login_arr);
 } else {
     http_response_code(404);
-    echo json_encode(array("message" => "Real Estate does not exist."));
+    echo json_encode(array("message" => "login does not exist."));
 }

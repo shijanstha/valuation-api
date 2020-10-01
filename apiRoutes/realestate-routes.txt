@@ -2,10 +2,8 @@ create realestate:
 
 localhost/valuation-api/real_estate/create.php  ----POST request
 {
-    "re_name" : "real estate name",
     "address" : "real estate address",
     "cost" : "cost",
-    "contact_no" : "12312",
     "img_path" : "../uploads/real_estate.jpg"
 }
 

@@ -1,0 +1,33 @@
+Add admin:
+localhost/valuation-api/login/create.php  -- POST request
+{
+    "user_name" : "user_name",
+    "password" : "password"
+}
+
+Update admin:
+localhost/valuation-api/login/update.php  -- POST request
+{
+    "user_name" : "user_name",
+    "password" : "password",
+    "id" : "1"
+}
+
+delete admin:
+localhost/valuation-api/login/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+get all admins:
+localhost/valuation-api/login/get_all.php    ---- GET request
+
+get admin by id:
+localhost/valuation-api/login/get_admin.php?id=1  ----GET  request
+
+check login
+localhost/valuation-api/login/check_login.php  -- POST request
+{
+    "user_name" : "user_name",
+    "password" : "password"
+}

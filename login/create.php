@@ -9,35 +9,34 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
 
-include_once '../objects/real_estate.php';
+include_once '../objects/login.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$re = new RealEstate($db);
+$login = new Login($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->address) &&
-    !empty($data->cost) &&
-    !empty($data->img_path)
+    !empty($data->user_name) &&
+    !empty($data->password)
 ) {
 
-    $re->address = $data->address;
-    $re->cost = $data->cost;
-    $re->img_path = $data->img_path;
+    $login->user_name = $data->user_name;
+    $login->password = $data->password;
 
-    if ($re->createRealEstate()) {
+    if ($login->createUser()) {
         http_response_code(201);
-        echo json_encode(array("message" => "Real Estate was created."));
+        echo json_encode(array("message" => "Admin was created."));
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Unable to create real estate."));
+        echo json_encode(array("message" => "Unable to create admin."));
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Unable to create real estate. Data is incomplete."));
+    echo json_encode(array("message" => "Unable to create admin. Data is incomplete."));
 }
+?>
