@@ -17,22 +17,31 @@ $db = $database->getConnection();
 // initialize object
 $slider = new SliderImage($db);
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
 
-if (
-    !empty($data->img_path)
-) {
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
 
-    $slider->slider_desc = $data->slider_desc;
-    $slider->img_path = $data->img_path;
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
-    if ($slider->addImageToSlider()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "Image was added."));
-    } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to add image."));
+
+if (!empty($_POST["slider_desc"])) {
+    $slider->slider_desc = $_POST["slider_desc"];
+    $slider->img_path = $destination;
+
+    if (file_exists($uploadDestination)) {
+        echo json_encode(array("message" => "Image already exists."));
+    } elseif (move_uploaded_file($file, $uploadDestination)) {
+        if ($slider->addImageToSlider()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Image was added."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to add image."));
+        }
     }
 } else {
     http_response_code(400);

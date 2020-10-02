@@ -17,25 +17,35 @@ $db = $database->getConnection();
 // initialize object
 $re = new RealEstate($db);
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
+
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
+
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
 if (
-    !empty($data->address) &&
-    !empty($data->cost) &&
-    !empty($data->img_path)
+    !empty($_POST["address"]) &&
+    !empty($_POST["cost"])
 ) {
 
-    $re->address = $data->address;
-    $re->cost = $data->cost;
-    $re->img_path = $data->img_path;
+    $re->address = $_POST["address"];
+    $re->cost = $_POST["cost"];
+    $re->img_path = $_POST["img_path"];
 
-    if ($re->createRealEstate()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "Real Estate was created."));
-    } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to create real estate."));
+    if (file_exists($uploadDestination)) {
+        echo json_encode(array("message" => "Image already exists."));
+    } elseif (move_uploaded_file($file, $uploadDestination)) {
+        if ($re->createRealEstate()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Real Estate was created."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to create real estate."));
+        }
     }
 } else {
     http_response_code(400);

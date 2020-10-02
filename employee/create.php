@@ -17,34 +17,44 @@ $db = $database->getConnection();
 // initialize object
 $employee = new Employee($db);
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
+
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
+
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
 if (
-    !empty($data->employee_name) &&
-    !empty($data->position) &&
-    !empty($data->contact_no) &&
-    !empty($data->email) &&
-    !empty($data->type) &&
-    !empty($data->img_path)
+    !empty($_POST["employee_name"]) &&
+    !empty($_POST["position"]) &&
+    !empty($_POST["contact_no"]) &&
+    !empty($_POST["email"]) &&
+    !empty($_POST["emp_type"])
 ) {
 
-    $employee->employee_name = $data->employee_name;
-    $employee->position = $data->fname;
-    $employee->contact_no = $data->contact_no;
-    $employee->email = $data->email;
-    $employee->type = $data->type;
-    $employee->img_path = $data->img_path;
+    $employee->employee_name = $_POST["employee_name"];
+    $employee->position = $_POST["position"];
+    $employee->contact_no = $_POST["contact_no"];
+    $employee->email = $_POST["email"];
+    $employee->emp_type_id = $_POST["emp_type"];
+    $employee->fb_link = $_POST["fb_link"];
+    $employee->img_path = $destination;
 
-    if ($employee->createEmployee()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "Employee was created."));
-    } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to create employee."));
+    if (file_exists($uploadDestination)) {
+        echo json_encode(array("message" => "Image already exists."));
+    } elseif (move_uploaded_file($file, $uploadDestination)) {
+        if ($employee->createEmployee()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Employee was created."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to create employee."));
+        }
     }
 } else {
     http_response_code(400);
     echo json_encode(array("message" => "Unable to create Employee. Data is incomplete."));
 }
-?>

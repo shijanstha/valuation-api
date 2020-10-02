@@ -16,17 +16,28 @@ $db = $database->getConnection();
 
 $slider = new SliderImage($db);
 
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
 
-$slider->slider_id = $data->id;
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
 
-$slider->slider_desc = $data->slider_desc;
-$slider->img_path = $data->img_path;
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
-if ($slider->update()) {
-    http_response_code(200);
-    echo json_encode(array("message" => "Image detail updated."));
-} else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Unable to update image detail."));
+$slider->slider_id = $_POST["id"];
+$slider->slider_desc = $_POST["slider_desc"];
+$slider->img_path = $destination;
+
+if (file_exists($uploadDestination)) {
+    echo json_encode(array("message" => "Image already exists."));
+} elseif (move_uploaded_file($file, $uploadDestination)) {
+    if ($slider->update()) {
+        http_response_code(200);
+        echo json_encode(array("message" => "Image detail updated."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to update image detail."));
+    }
 }

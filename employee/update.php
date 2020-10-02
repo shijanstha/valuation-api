@@ -16,22 +16,33 @@ $db = $database->getConnection();
 
 $employee = new Employee($db);
 
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
 
-$employee->employee_id = $data->id;
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
 
-$employee->employee_name = $data->employee_name;
-$employee->position = $data->position;
-$employee->contact_no = $data->contact_no;
-$employee->email = $data->email;
-$employee->type = $data->type;
-$employee->img_path = $data->img_path;
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
-if ($employee->update()) {
-    http_response_code(200);
-    echo json_encode(array("message" => "Employee Detail updated."));
-} else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Unable to update employee detail."));
+$employee->employee_id = $_POST["id"];
+
+$employee->employee_name = $_POST["employee_name"];
+$employee->position = $_POST["position"];
+$employee->contact_no = $_POST["contact_no"];
+$employee->email = $_POST["email"];
+$employee->type = $_POST["type"];
+$employee->img_path = $_POST["img_path"];
+
+if (file_exists($uploadDestination)) {
+    echo json_encode(array("message" => "Image already exists."));
+} elseif (move_uploaded_file($file, $uploadDestination)) {
+    if ($employee->update()) {
+        http_response_code(200);
+        echo json_encode(array("message" => "Employee Detail updated."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to update employee detail."));
+    }
 }
-?>

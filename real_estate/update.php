@@ -16,20 +16,32 @@ $db = $database->getConnection();
 
 $re = new RealEstate($db);
 
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
 
-$re->re_id = $data->id;
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
 
-$re->re_name = $data->re_name;
-$re->address = $data->address;
-$re->contact_no = $data->contact_no;
-$re->cost = $data->cost;
-$re->img_path = $data->img_path;
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
-if ($re->update()) {
-    http_response_code(200);
-    echo json_encode(array("message" => "Real Estate Detail updated."));
-} else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Unable to update real estate detail."));
+$re->re_id = $_POST["id"];
+
+$re->re_name = $_POST["re_name"];
+$re->address = $_POST["address"];
+$re->contact_no = $_POST["contact_no"];
+$re->cost = $_POST["cost"];
+$re->img_path = $_POST["img_path"];
+
+if (file_exists($uploadDestination)) {
+    echo json_encode(array("message" => "Image already exists."));
+} elseif (move_uploaded_file($file, $uploadDestination)) {
+    if ($re->update()) {
+        http_response_code(200);
+        echo json_encode(array("message" => "Real Estate Detail updated."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to update real estate detail."));
+    }
 }

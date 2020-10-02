@@ -16,22 +16,34 @@ $db = $database->getConnection();
 
 $journal = new Journal($db);
 
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
 
-$journal->journal_id = $data->id;
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
 
-$journal->title = $data->title;
-$journal->summary = $data->summary;
-$journal->desc_1 = $data->desc_1;
-$journal->desc_2 = $data->desc_2;
-$journal->desc_3 = $data->desc_3;
-$journal->desc_4 = $data->desc_4;
-$journal->img_path = $data->img_path;
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
-if ($journal->update()) {
-    http_response_code(200);
-    echo json_encode(array("message" => "Journal detail updated."));
-} else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Unable to update journal detail."));
+$journal->journal_id = $_POST["id"];
+
+$journal->title = $_POST["title"];
+$journal->summary = $_POST["summary"];
+$journal->desc_1 = $_POST["desc_1"];
+$journal->desc_2 = $_POST["desc_2"];
+$journal->desc_3 = $_POST["desc_3"];
+$journal->desc_4 = $_POST["desc_4"];
+$journal->img_path = $destination;
+
+if (file_exists($uploadDestination)) {
+    echo json_encode(array("message" => "Image already exists."));
+} elseif (move_uploaded_file($file, $uploadDestination)) {
+    if ($journal->update()) {
+        http_response_code(200);
+        echo json_encode(array("message" => "Journal detail updated."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to update journal detail."));
+    }
 }

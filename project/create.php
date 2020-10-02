@@ -17,25 +17,35 @@ $db = $database->getConnection();
 // initialize object
 $project = new Project($db);
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
+
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
+
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
 if (
-    !empty($data->project_title) &&
-    !empty($data->project_desc) &&
-    !empty($data->img_path)
+    !empty($_POST["project_title"]) &&
+    !empty($_POST["project_desc"])
 ) {
 
-    $project->project_title = $data->project_title;
-    $project->project_desc = $data->project_desc;
-    $project->img_path = $data->img_path;
+    $project->project_title = $_POST["project_title"];
+    $project->project_desc = $_POST["project_desc"];
+    $project->img_path = $destination;
 
-    if ($project->createProject()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "Project was created."));
-    } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to create project."));
+    if (file_exists($uploadDestination)) {
+        echo json_encode(array("message" => "Image already exists."));
+    } elseif (move_uploaded_file($file, $uploadDestination)) {
+        if ($project->createProject()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Project was created."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to create project."));
+        }
     }
 } else {
     http_response_code(400);

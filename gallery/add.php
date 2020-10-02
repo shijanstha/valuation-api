@@ -17,23 +17,34 @@ $db = $database->getConnection();
 // initialize object
 $gallery = new Gallery($db);
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
+
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
+
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
+
 
 if (
-    !empty($data->img_desc) &&
-    !empty($data->img_path)
+    !empty($_POST["img_desc"])
 ) {
 
-    $gallery->img_desc = $data->img_desc;
-    $gallery->img_path = $data->img_path;
+    $gallery->img_desc = $_POST["img_desc"];
+    $gallery->img_path = $destination;
 
-    if ($gallery->addImageToGallery()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "Image was added."));
-    } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to add image."));
+    if (file_exists($uploadDestination)) {
+        echo json_encode(array("message" => "Image already exists."));
+    } elseif (move_uploaded_file($file, $uploadDestination)) {
+        if ($gallery->addImageToGallery()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Image was added."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to add image."));
+        }
     }
 } else {
     http_response_code(400);

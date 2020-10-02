@@ -13,7 +13,8 @@ class Employee
     public $position;
     public $contact_no;
     public $email;
-    public $type;
+    public $emp_type_id;
+    public $fb_link;
     public $img_path;
 
     // constructor with $db as database connection
@@ -38,8 +39,8 @@ class Employee
     {
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
-                    employee_name= :employee_name, position= :position, type = :type,
-                    contact_no = :contact_no, email = :email, img_path = :img_path";
+                    employee_name= :employee_name, position= :position, emp_type_id = :emp_type_id,
+                    contact_no = :contact_no, email = :email, img_path = :img_path, fb_link = :fb_link";
 
         $stmt = $this->conn->prepare($query);
 
@@ -47,7 +48,8 @@ class Employee
         //sanitizing for sql injection
         $this->employee_name = htmlspecialchars(strip_tags($this->employee_name));
         $this->position = htmlspecialchars(strip_tags($this->position));
-        $this->type = htmlspecialchars(strip_tags($this->type));
+        $this->emp_type_id = htmlspecialchars(strip_tags($this->emp_type_id));
+        $this->fb_link = htmlspecialchars(strip_tags($this->fb_link));
         $this->contact_no = htmlspecialchars(strip_tags($this->contact_no));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
@@ -55,10 +57,11 @@ class Employee
         // bind values
         $stmt->bindParam(":employee_name", $this->employee_name);
         $stmt->bindParam(":position", $this->position);
-        $stmt->bindParam(":type", $this->type);
+        $stmt->bindParam(":emp_type_id", $this->emp_type_id);
         $stmt->bindParam(":contact_no", $this->contact_no);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":img_path", $this->img_path);
+        $stmt->bindParam(":fb_link", $this->fb_link);
 
         if ($stmt->execute()) {
             return true;
@@ -89,10 +92,11 @@ class Employee
         $this->employee_id = $row['employee_id'];
         $this->employee_name = $row['employee_name'];
         $this->position = $row['position'];
-        $this->type = $row['type'];
+        $this->emp_type_id = $row['emp_type_id'];
         $this->contact_no = $row['contact_no'];
         $this->email = $row['email'];
         $this->img_path = $row['img_path'];
+        $this->fb_link = $row['fb_link'];
     }
 
     function update()
@@ -101,9 +105,10 @@ class Employee
                     SET
                         employee_name = :employee_name,
                         position = :position,
-                        type = :type,
+                        emp_type_id = :emp_type_id,
                         contact_no = :contact_no,
                         email = :email,
+                        fb_link = :fb_link,
                         img_path = :img_path
                     WHERE employee_id = :employee_id";
 
@@ -111,18 +116,20 @@ class Employee
 
         $this->employee_name = htmlspecialchars(strip_tags($this->employee_name));
         $this->position = htmlspecialchars(strip_tags($this->position));
-        $this->type = htmlspecialchars(strip_tags($this->type));
+        $this->emp_type_id = htmlspecialchars(strip_tags($this->emp_type_id));
         $this->contact_no = htmlspecialchars(strip_tags($this->contact_no));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
+        $this->fb_link = htmlspecialchars(strip_tags($this->fb_link));
         $this->employee_id = htmlspecialchars(strip_tags($this->employee_id));
 
         $stmt->bindParam(':employee_name', $this->employee_name);
         $stmt->bindParam(':position', $this->position);
-        $stmt->bindParam(':type', $this->type);
+        $stmt->bindParam(':emp_type_id', $this->emp_type_id);
         $stmt->bindParam(':contact_no', $this->contact_no);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':img_path', $this->img_path);
+        $stmt->bindParam(':fb_link', $this->fb_link);
         $stmt->bindParam(':employee_id', $this->employee_id);
 
         if ($stmt->execute()) {

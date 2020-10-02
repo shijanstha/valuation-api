@@ -16,19 +16,30 @@ $db = $database->getConnection();
 
 $project = new Project($db);
 
-$data = json_decode(file_get_contents("php://input"));
+// name of file
+$filename = $_FILES['img']['name'];
 
-$project->project_id = $data->id;
+// destination of the file on the server
+$destination = 'uploads/' . $filename;
+$uploadDestination = '../uploads/' . $filename;
 
-$project->project_title = $data->project_title;
-$project->project_desc = $data->project_desc;
-$project->img_path = $data->img_path;
+// the physical file on a temporary uploads directory on the server
+$file = $_FILES['img']['tmp_name'];
 
-if ($project->update()) {
-    http_response_code(200);
-    echo json_encode(array("message" => "Project detail updated."));
-} else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Unable to update project detail."));
+$project->project_id = $_POST["id"];
+
+$project->project_title = $_POST["project_title"];
+$project->project_desc = $_POST["project_desc"];
+$project->img_path = $destination;
+
+if (file_exists($uploadDestination)) {
+    echo json_encode(array("message" => "Image already exists."));
+} elseif (move_uploaded_file($file, $uploadDestination)) {
+    if ($project->update()) {
+        http_response_code(200);
+        echo json_encode(array("message" => "Project detail updated."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to update project detail."));
+    }
 }
-?>

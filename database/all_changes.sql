@@ -109,12 +109,32 @@ CREATE TABLE `testimonial` (
   PRIMARY KEY (`tes_id`)
 );
 
-CREATE TABLE `valuation`.`admin` (
+CREATE TABLE `admin` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-ALTER TABLE `valuation`.`real_estate` 
+ALTER TABLE `real_estate` 
 DROP COLUMN `contact_no`,
 DROP COLUMN `re_name`;
+
+CREATE TABLE `emp_type` (
+  `emp_type_id` INT NOT NULL AUTO_INCREMENT,
+  `emp_type_name` VARCHAR(255) NULL,
+  PRIMARY KEY (`emp_type_id`));
+
+INSERT INTO `valuation`.`emp_type` (`emp_type_id`, `emp_type_name`) VALUES ('1', 'Construction');
+INSERT INTO `valuation`.`emp_type` (`emp_type_id`, `emp_type_name`) VALUES ('2', 'Valuation');
+INSERT INTO `valuation`.`emp_type` (`emp_type_id`, `emp_type_name`) VALUES ('3', 'Planning');
+INSERT INTO `valuation`.`emp_type` (`emp_type_id`, `emp_type_name`) VALUES ('4', 'Interior Design');
+INSERT INTO `valuation`.`emp_type` (`emp_type_id`, `emp_type_name`) VALUES ('5', '3D Modelling');
+INSERT INTO `valuation`.`emp_type` (`emp_type_id`, `emp_type_name`) VALUES ('6', 'Cost and Estimation');
+
+
+ALTER TABLE `employee` 
+ADD COLUMN `fb_link` VARCHAR(500) NULL AFTER `img_path`,
+DROP INDEX `email_UNIQUE` ;
+
+ALTER TABLE `employee` 
+CHANGE COLUMN `type` `emp_type_id` INT NOT NULL ;
