@@ -43,9 +43,7 @@ if (
     $employee->fb_link = $_POST["fb_link"];
     $employee->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
+    if (move_uploaded_file($file, $uploadDestination)) {
         if ($employee->createEmployee()) {
             http_response_code(201);
             echo json_encode(array("message" => "Employee was created."));

@@ -28,22 +28,15 @@ $uploadDestination = '../uploads/' . $filename;
 $file = $_FILES['img']['tmp_name'];
 
 
-if (!empty($_POST["slider_desc"])) {
-    $slider->slider_desc = $_POST["slider_desc"];
-    $slider->img_path = $destination;
+$slider->slider_desc = "";
+$slider->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
-        if ($slider->addImageToSlider()) {
-            http_response_code(201);
-            echo json_encode(array("message" => "Image was added."));
-        } else {
-            http_response_code(503);
-            echo json_encode(array("message" => "Unable to add image."));
-        }
+if (move_uploaded_file($file, $uploadDestination)) {
+    if ($slider->addImageToSlider()) {
+        http_response_code(201);
+        echo json_encode(array("message" => "Image was added."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to add image."));
     }
-} else {
-    http_response_code(400);
-    echo json_encode(array("message" => "Unable to add image."));
 }

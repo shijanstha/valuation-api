@@ -27,12 +27,10 @@ $uploadDestination = '../uploads/' . $filename;
 $file = $_FILES['img']['tmp_name'];
 
 $slider->slider_id = $_POST["id"];
-$slider->slider_desc = $_POST["slider_desc"];
+$slider->slider_desc = "";
 $slider->img_path = $destination;
 
-if (file_exists($uploadDestination)) {
-    echo json_encode(array("message" => "Image already exists."));
-} elseif (move_uploaded_file($file, $uploadDestination)) {
+if (move_uploaded_file($file, $uploadDestination)) {
     if ($slider->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Image detail updated."));

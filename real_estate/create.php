@@ -33,12 +33,14 @@ if (
 ) {
 
     $re->address = $_POST["address"];
-    $re->cost = $_POST["cost"];
-    $re->img_path = $_POST["img_path"];
+    $re->frontage = $_POST["frontage"];
+    $re->area_of_property = $_POST["area_of_property"];
+    $re->geo_location = $_POST["geo_location"];
+    $re->contact = $_POST["contact"];
+    $re->base_rate = $_POST["base_rate"];
+    $re->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
+    if (move_uploaded_file($file, $uploadDestination)) {
         if ($re->createRealEstate()) {
             http_response_code(201);
             echo json_encode(array("message" => "Real Estate was created."));

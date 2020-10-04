@@ -33,7 +33,8 @@ class Gallery
     {
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
-                   img_desc = :img_desc, img_path = :img_path";
+                   img_desc = :img_desc, 
+                   img_path = :img_path";
 
         $stmt = $this->conn->prepare($query);
 

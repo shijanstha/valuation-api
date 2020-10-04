@@ -26,6 +26,9 @@ if ($project->project_title != null) {
         "project_id" => $project->project_id,
         "project_title" => $project->project_title,
         "project_desc" => $project->project_desc,
+        "client" => $project->client,
+        "address" => $project->address,
+        "project_cost" => $project->project_cost,
         "img_path" => $project->img_path
     );
 

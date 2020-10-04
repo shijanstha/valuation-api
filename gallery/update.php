@@ -29,12 +29,10 @@ $file = $_FILES['img']['tmp_name'];
 
 if (!empty($_POST["id"])) {
     $gallery->img_id = $_POST['id'];
-    $gallery->img_desc = $_POST["img_desc"];
+    $gallery->img_desc = "";
     $gallery->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
+    if (move_uploaded_file($file, $uploadDestination)) {
         if ($gallery->update()) {
             http_response_code(200);
             echo json_encode(array("message" => "Image detail updated."));

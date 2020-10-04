@@ -33,11 +33,9 @@ $employee->position = $_POST["position"];
 $employee->contact_no = $_POST["contact_no"];
 $employee->email = $_POST["email"];
 $employee->type = $_POST["type"];
-$employee->img_path = $_POST["img_path"];
+$employee->img_path = $destination;
 
-if (file_exists($uploadDestination)) {
-    echo json_encode(array("message" => "Image already exists."));
-} elseif (move_uploaded_file($file, $uploadDestination)) {
+if (move_uploaded_file($file, $uploadDestination)) {
     if ($employee->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Employee Detail updated."));

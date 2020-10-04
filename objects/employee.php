@@ -16,6 +16,7 @@ class Employee
     public $emp_type_id;
     public $fb_link;
     public $img_path;
+    public $emp_type_name;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -25,9 +26,11 @@ class Employee
 
     function fetchAllEmployees()
     {
-        $query = "SELECT * FROM " . $this->table_name . "
+        $query = "SELECT * FROM " . $this->table_name . " e
+                    LEFT JOIN emp_type et
+                        ON e.emp_type_id = et.emp_type_id
                     ORDER BY
-                        employee_name";
+                        e.employee_name";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -73,7 +76,9 @@ class Employee
     function fetchEmployee()
     {
         $query = "SELECT *       
-                        FROM " . $this->table_name . " 
+                        FROM " . $this->table_name . " e
+                        LEFT JOIN emp_type et
+                        ON e.emp_type_id = et.emp_type_id
                         where employee_id = ?
                         LIMIT 0,1";
 
@@ -92,7 +97,7 @@ class Employee
         $this->employee_id = $row['employee_id'];
         $this->employee_name = $row['employee_name'];
         $this->position = $row['position'];
-        $this->emp_type_id = $row['emp_type_id'];
+        $this->emp_type_name = $row['emp_type_name'];
         $this->contact_no = $row['contact_no'];
         $this->email = $row['email'];
         $this->img_path = $row['img_path'];

@@ -34,11 +34,12 @@ if (
 
     $project->project_title = $_POST["project_title"];
     $project->project_desc = $_POST["project_desc"];
+    $project->client = $_POST["client"];
+    $project->address = $_POST["address"];
+    $project->project_cost = $_POST["project_cost"];
     $project->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
+    if (move_uploaded_file($file, $uploadDestination)) {
         if ($project->createProject()) {
             http_response_code(201);
             echo json_encode(array("message" => "Project was created."));

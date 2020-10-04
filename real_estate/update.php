@@ -28,15 +28,15 @@ $file = $_FILES['img']['tmp_name'];
 
 $re->re_id = $_POST["id"];
 
-$re->re_name = $_POST["re_name"];
 $re->address = $_POST["address"];
-$re->contact_no = $_POST["contact_no"];
-$re->cost = $_POST["cost"];
-$re->img_path = $_POST["img_path"];
+$re->frontage = $_POST["frontage"];
+$re->area_of_property = $_POST["area_of_property"];
+$re->geo_location = $_POST["geo_location"];
+$re->contact = $_POST["contact"];
+$re->base_rate = $_POST["base_rate"];
+$re->img_path = $destination;
 
-if (file_exists($uploadDestination)) {
-    echo json_encode(array("message" => "Image already exists."));
-} elseif (move_uploaded_file($file, $uploadDestination)) {
+if (move_uploaded_file($file, $uploadDestination)) {
     if ($re->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Real Estate Detail updated."));

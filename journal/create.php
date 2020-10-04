@@ -28,7 +28,7 @@ $uploadDestination = '../uploads/' . $filename;
 $file = $_FILES['img']['tmp_name'];
 
 if (!empty($_POST["title"])) {
-    
+
     $journal->title = $_POST["title"];
     $journal->summary = $_POST["summary"];
     $journal->desc_1 = $_POST["desc_1"];
@@ -37,9 +37,7 @@ if (!empty($_POST["title"])) {
     $journal->desc_4 = $_POST["desc_4"];
     $journal->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
+    if (move_uploaded_file($file, $uploadDestination)) {
         if ($journal->createJournal()) {
             http_response_code(201);
             echo json_encode(array("message" => "Journal was created."));

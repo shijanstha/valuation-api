@@ -33,7 +33,8 @@ if ($num > 0) {
             "position" => $position,
             "contact_no" => $contact_no,
             "email" => $email,
-            "type" => $type,
+            "emp_type_name" => $emp_type_name,
+            "fb_link" => $fb_link,
             "img_path" => $img_path
         );
 
@@ -49,4 +50,3 @@ if ($num > 0) {
         array("message" => "No employee found.")
     );
 }
-?>

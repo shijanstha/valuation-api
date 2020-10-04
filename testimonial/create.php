@@ -38,9 +38,7 @@ if (
     $testimonial->paragraph = $_POST["paragraph"];
     $testimonial->img_path = $destination;
 
-    if (file_exists($uploadDestination)) {
-        echo json_encode(array("message" => "Image already exists."));
-    } elseif (move_uploaded_file($file, $uploadDestination)) {
+    if (move_uploaded_file($file, $uploadDestination)) {
         if ($testimonial->createTestimonial()) {
             http_response_code(201);
             echo json_encode(array("message" => "Testimonial was created."));

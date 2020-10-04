@@ -39,7 +39,7 @@ CREATE TABLE `journal` (
 
 ------Gallery table----------
 CREATE TABLE `gallery` (
-  `img_id` INT NOT NULL,
+  `img_id` INT NOT NULL AUTO_INCREMENT,
   `img_desc` VARCHAR(255) NULL,
   `img_path` VARCHAR(255) NULL,
   PRIMARY KEY (`img_id`));
@@ -138,3 +138,53 @@ DROP INDEX `email_UNIQUE` ;
 
 ALTER TABLE `employee` 
 CHANGE COLUMN `type` `emp_type_id` INT NOT NULL ;
+
+ALTER TABLE `project` 
+ADD COLUMN `client` VARCHAR(160) NULL AFTER `project_title`,
+ADD COLUMN `address` VARCHAR(60) NULL AFTER `client`,
+ADD COLUMN `project_cost` VARCHAR(45) NULL AFTER `project_desc`;
+
+ALTER TABLE `real_estate` 
+DROP COLUMN `cost`,
+ADD COLUMN `frontage` VARCHAR(45) NULL AFTER `re_id`,
+ADD COLUMN `area_of_property` VARCHAR(45) NULL AFTER `frontage`,
+ADD COLUMN `geo_location` VARCHAR(45) NULL AFTER `address`,
+ADD COLUMN `contact` VARCHAR(45) NULL AFTER `geo-location`,
+ADD COLUMN `base_rate` VARCHAR(45) NULL AFTER `contact`;
+
+
+CREATE TABLE `estimation` (
+  `key` VARCHAR(45) NOT NULL,
+  `value` INT NULL,
+  PRIMARY KEY (`key`));
+
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_attached_bathroom_rate',91200);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_bedroom_rate',312000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_common_bathroom_rate',114000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_floor_rate',1600);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_kitchen_rate',117760);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_modular_kitchen_rate',300000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('basic_sitting_room_rate',312000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_attached_bathroom_rate',107200);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_bedroom_rate',468000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_common_bathroom_rate',134000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_floor_rate',1650);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_kitchen_rate',147200);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_modular_kitchen_rate',450000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('deluxe_sitting_room_rate',468000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_attached_bathroom_rate',114800);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_bedroom_rate',702000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_common_bathroom_rate',164000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_floor_rate',1800);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_kitchen_rate',184000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_modular_kitchen_rate',600000);
+INSERT INTO `estimation` (`key`,`value`) VALUES ('premium_sitting_room_rate',345600);
+
+
+CREATE TABLE `client_detail` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL,
+  `contact_no` VARCHAR(45) NULL,
+  `email` VARCHAR(60) NULL,
+  PRIMARY KEY (`id`));

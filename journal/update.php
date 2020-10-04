@@ -36,9 +36,7 @@ $journal->desc_3 = $_POST["desc_3"];
 $journal->desc_4 = $_POST["desc_4"];
 $journal->img_path = $destination;
 
-if (file_exists($uploadDestination)) {
-    echo json_encode(array("message" => "Image already exists."));
-} elseif (move_uploaded_file($file, $uploadDestination)) {
+if (move_uploaded_file($file, $uploadDestination)) {
     if ($journal->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Journal detail updated."));

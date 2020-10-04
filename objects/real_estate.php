@@ -9,8 +9,12 @@ class RealEstate
 
     // object properties
     public $re_id;
+    public $frontage;
+    public $area_of_property;
     public $address;
-    public $cost;
+    public $geo_location;
+    public $contact;
+    public $base_rate;
     public $img_path;
 
     // constructor with $db as database connection
@@ -40,7 +44,11 @@ class RealEstate
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
                     address = :address,
-                    cost = :cost,
+                    frontage = :frontage,
+                    area_of_property = :area_of_property,
+                    geo_location = :geo_location,
+                    contact = :contact,
+                    base_rate = :base_rate,
                     img_path = :img_path
                     ";
 
@@ -48,12 +56,20 @@ class RealEstate
 
         //sanitizing for sql injection
         $this->address = htmlspecialchars(strip_tags($this->address));
-        $this->cost = htmlspecialchars(strip_tags($this->cost));
+        $this->frontage = htmlspecialchars(strip_tags($this->frontage));
+        $this->area_of_property = htmlspecialchars(strip_tags($this->area_of_property));
+        $this->geo_location = htmlspecialchars(strip_tags($this->geo_location));
+        $this->contact = htmlspecialchars(strip_tags($this->contact));
+        $this->base_rate = htmlspecialchars(strip_tags($this->base_rate));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         // bind values
         $stmt->bindParam(":address", $this->address);
-        $stmt->bindParam(":cost", $this->cost);
+        $stmt->bindParam(":frontage", $this->frontage);
+        $stmt->bindParam(":area_of_property", $this->area_of_property);
+        $stmt->bindParam(":geo_location", $this->geo_location);
+        $stmt->bindParam(":contact", $this->contact);
+        $stmt->bindParam(":base_rate", $this->base_rate);
         $stmt->bindParam(":img_path", $this->img_path);
 
         if ($stmt->execute()) {
@@ -83,7 +99,11 @@ class RealEstate
         // set values to object properties
         $this->re_id = $row['re_id'];
         $this->address = $row['address'];
-        $this->cost = $row['cost'];
+        $this->frontage = $row['frontage'];
+        $this->geo_location = $row['geo_location'];
+        $this->area_of_property = $row['area_of_property'];
+        $this->contact = $row['contact'];
+        $this->base_rate = $row['base_rate'];
         $this->img_path = $row['img_path'];
     }
 
@@ -91,9 +111,13 @@ class RealEstate
     {
         $query = "UPDATE " . $this->table_name . "
                     SET
-                        address = :address,
-                        cost = :cost,
-                        img_path = :img_path
+                    address = :address,
+                    frontage = :frontage,
+                    area_of_property = :area_of_property,
+                    geo_location = :geo_location,
+                    contact = :contact,
+                    base_rate = :base_rate,
+                    img_path = :img_path
 
                     WHERE re_id = :re_id";
 
@@ -101,13 +125,21 @@ class RealEstate
 
         $this->re_id = htmlspecialchars(strip_tags($this->re_id));
         $this->address = htmlspecialchars(strip_tags($this->address));
-        $this->cost = htmlspecialchars(strip_tags($this->cost));
+        $this->frontage = htmlspecialchars(strip_tags($this->frontage));
+        $this->area_of_property = htmlspecialchars(strip_tags($this->area_of_property));
+        $this->geo_location = htmlspecialchars(strip_tags($this->geo_location));
+        $this->contact = htmlspecialchars(strip_tags($this->contact));
+        $this->base_rate = htmlspecialchars(strip_tags($this->base_rate));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         $stmt->bindParam(':re_id', $this->re_id);
-        $stmt->bindParam(':address', $this->address);
-        $stmt->bindParam(':cost', $this->cost);
-        $stmt->bindParam(':img_path', $this->img_path);
+        $stmt->bindParam(":address", $this->address);
+        $stmt->bindParam(":frontage", $this->frontage);
+        $stmt->bindParam(":area_of_property", $this->area_of_property);
+        $stmt->bindParam(":geo_location", $this->geo_location);
+        $stmt->bindParam(":contact", $this->contact);
+        $stmt->bindParam(":base_rate", $this->base_rate);
+        $stmt->bindParam(":img_path", $this->img_path);
 
         if ($stmt->execute()) {
             return true;

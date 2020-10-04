@@ -31,6 +31,9 @@ if ($num > 0) {
             "project_id" => $project_id,
             "project_title" => $project_title,
             "project_desc" => $project_desc,
+            "client" => $client,
+            "address" => $address,
+            "project_cost" => $project_cost,
             "img_path" => $img_path
         );
 

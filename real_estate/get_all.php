@@ -30,7 +30,11 @@ if ($num > 0) {
         $re_row = array(
             "re_id" => $re_id,
             "address" => $address,
-            "cost" => $cost,
+            "frontage" => $frontage,
+            "area_of_property" => $area_of_property,
+            "geo_location" => $geo_location,
+            "contact" => $contact,
+            "base_rate" => $base_rate,
             "img_path" => $img_path
         );
 

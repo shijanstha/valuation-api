@@ -5,7 +5,8 @@ localhost/valuation-api/employee/create.php  ----POST request
     "position" : "Computer Engineer",
     "contact_no" : "9801200169",
     "email" : "shijan0408@gmail.com",
-    "type" : "admin",
+    "emp_type" : "1",
+    "fb_link" : "www/ww",
     "img_path" : "../uploads/shijan.jpg"
 }
 
@@ -16,7 +17,8 @@ localhost/valuation-api/employee/update.php  ----POST request
     "position" : "Computer Engineer",
     "contact_no" : "9801200169",
     "email" : "shijan0408@gmail.com",
-    "type" : "admin",
+    "emp_type" : "1",
+    "fb_link" : "www/ww",
     "img_path" : "../uploads/shijan.jpg",
     "id" : 1
 }

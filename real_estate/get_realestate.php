@@ -25,7 +25,11 @@ if ($re->re_name != null) {
     $re_arr = array(
         "re_id" => $re->re_id,
         "address" => $re->address,
-        "cost" => $re->cost,
+        "frontage" => $re->frontage,
+        "area_of_property" => $re->area_of_property,
+        "geo_location" => $re->geo_location,
+        "contact" => $re->contact,
+        "base_rate" => $re->base_rate,
         "img_path" => $re->img_path
     );
 
