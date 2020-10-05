@@ -8,46 +8,42 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/employee.php';
+include_once '../objects/clientDetail.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$employee = new Employee($db);
+$clientDetail = new ClientDetail($db);
 
-$stmt = $employee->fetchAllEmployees();
+$stmt = $clientDetail->getAllClientDetail();
 $num = $stmt->rowCount();
 
 if ($num > 0) {
 
-    $employees_arr = array();
-    $employees_arr["records"] = array();
+    $detail_arr = array();
+    $detail_arr["records"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $employee_row = array(
-            "employee_id" => $employee_id,
-            "employee_name" => $employee_name,
-            "position" => $position,
-            "contact_no" => $contact_no,
+        $detail_row = array(
+            "id" => $id,
+            "name" => $name,
             "email" => $email,
-            "emp_desc" => $emp_desc,
-            "emp_type_name" => $emp_type_name,
-            "fb_link" => $fb_link,
-            "img_path" => $img_path
+            "contact_no" => $contact_no,
+            "address" => $address,
         );
 
-        array_push($employees_arr["records"], $employee_row);
+        array_push($detail_arr["records"], $detail_row);
     }
 
     http_response_code(200);
-    echo json_encode($employees_arr);
+    echo json_encode($detail_arr);
 } else {
     http_response_code(404);
 
     echo json_encode(
-        array("message" => "No employee found.")
+        array("message" => "No detail found.")
     );
 }

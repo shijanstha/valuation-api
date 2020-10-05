@@ -188,3 +188,6 @@ CREATE TABLE `client_detail` (
   `contact_no` VARCHAR(45) NULL,
   `email` VARCHAR(60) NULL,
   PRIMARY KEY (`id`));
+
+ALTER TABLE `valuation`.`employee` 
+ADD COLUMN `emp_desc` VARCHAR(500) NULL AFTER `fb_link`;

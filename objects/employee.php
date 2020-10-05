@@ -15,6 +15,7 @@ class Employee
     public $email;
     public $emp_type_id;
     public $fb_link;
+    public $emp_desc;
     public $img_path;
     public $emp_type_name;
 
@@ -43,7 +44,7 @@ class Employee
         $query = "INSERT INTO " . $this->table_name . " 
                   SET
                     employee_name= :employee_name, position= :position, emp_type_id = :emp_type_id,
-                    contact_no = :contact_no, email = :email, img_path = :img_path, fb_link = :fb_link";
+                    contact_no = :contact_no, email = :email, img_path = :img_path, fb_link = :fb_link, emp_desc = :emp_desc";
 
         $stmt = $this->conn->prepare($query);
 
@@ -55,6 +56,7 @@ class Employee
         $this->fb_link = htmlspecialchars(strip_tags($this->fb_link));
         $this->contact_no = htmlspecialchars(strip_tags($this->contact_no));
         $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->emp_desc = htmlspecialchars(strip_tags($this->emp_desc));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
 
         // bind values
@@ -63,6 +65,7 @@ class Employee
         $stmt->bindParam(":emp_type_id", $this->emp_type_id);
         $stmt->bindParam(":contact_no", $this->contact_no);
         $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":emp_desc", $this->emp_desc);
         $stmt->bindParam(":img_path", $this->img_path);
         $stmt->bindParam(":fb_link", $this->fb_link);
 
@@ -100,6 +103,7 @@ class Employee
         $this->emp_type_name = $row['emp_type_name'];
         $this->contact_no = $row['contact_no'];
         $this->email = $row['email'];
+        $this->emp_desc = $row['emp_desc'];
         $this->img_path = $row['img_path'];
         $this->fb_link = $row['fb_link'];
     }
@@ -113,6 +117,7 @@ class Employee
                         emp_type_id = :emp_type_id,
                         contact_no = :contact_no,
                         email = :email,
+                        emp_desc = :emp_desc,
                         fb_link = :fb_link,
                         img_path = :img_path
                     WHERE employee_id = :employee_id";
@@ -124,6 +129,7 @@ class Employee
         $this->emp_type_id = htmlspecialchars(strip_tags($this->emp_type_id));
         $this->contact_no = htmlspecialchars(strip_tags($this->contact_no));
         $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->emp_desc = htmlspecialchars(strip_tags($this->emp_desc));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
         $this->fb_link = htmlspecialchars(strip_tags($this->fb_link));
         $this->employee_id = htmlspecialchars(strip_tags($this->employee_id));
@@ -133,6 +139,7 @@ class Employee
         $stmt->bindParam(':emp_type_id', $this->emp_type_id);
         $stmt->bindParam(':contact_no', $this->contact_no);
         $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':emp_desc', $this->emp_desc);
         $stmt->bindParam(':img_path', $this->img_path);
         $stmt->bindParam(':fb_link', $this->fb_link);
         $stmt->bindParam(':employee_id', $this->employee_id);

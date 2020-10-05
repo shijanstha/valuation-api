@@ -20,4 +20,4 @@ get all contact_us list:
 localhost/valuation-api/contact_us/get_all.php   ---- GET request
 
 get contact_us by id:
-localhost/valuation-api/journal/get_message.php?id=1    --- GET request
+localhost/valuation-api/contact_us/get_message.php?id=1    --- GET request

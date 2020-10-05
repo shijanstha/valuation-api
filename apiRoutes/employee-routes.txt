@@ -7,7 +7,8 @@ localhost/valuation-api/employee/create.php  ----POST request
     "email" : "shijan0408@gmail.com",
     "emp_type" : "1",
     "fb_link" : "www/ww",
-    "img_path" : "../uploads/shijan.jpg"
+    "emp_desc" : "emp_desc",
+    "img" : "img"
 }
 
 update employee:
@@ -19,7 +20,8 @@ localhost/valuation-api/employee/update.php  ----POST request
     "email" : "shijan0408@gmail.com",
     "emp_type" : "1",
     "fb_link" : "www/ww",
-    "img_path" : "../uploads/shijan.jpg",
+    "emp_desc" : "emp_desc",
+    "img" : "img",
     "id" : 1
 }
 

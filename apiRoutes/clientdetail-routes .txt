@@ -1,0 +1,23 @@
+create client_detail:
+
+localhost/valuation-api/client_detail/create.php  ----POST request
+{
+    "name" : "name 1",
+    "email" : "email 1",
+    "contact_no" : "9887675",
+    "address" : "lorem ipsum"
+}
+
+
+delete client_detail:
+localhost/valuation-api/client_detail/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+
+get all client_detail list:
+localhost/valuation-api/client_detail/get_all.php   ---- GET request
+
+get client_detail by id:
+localhost/valuation-api/client_detail/get_detail_by_id.php?id=1    --- GET request

@@ -32,7 +32,9 @@ $employee->employee_name = $_POST["employee_name"];
 $employee->position = $_POST["position"];
 $employee->contact_no = $_POST["contact_no"];
 $employee->email = $_POST["email"];
-$employee->type = $_POST["type"];
+$employee->emp_type_id = $_POST["emp_type"];
+$employee->fb_link = $_POST["fb_link"];
+$employee->emp_desc = $_POST["emp_desc"];
 $employee->img_path = $destination;
 
 if (move_uploaded_file($file, $uploadDestination)) {

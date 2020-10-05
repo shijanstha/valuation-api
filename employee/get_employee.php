@@ -28,6 +28,7 @@ if ($employee->employee_name != null) {
         "position" => $employee->position,
         "contact_no" => $employee->contact_no,
         "email" => $employee->email,
+        "emp_desc" => $employee->emp_desc,
         "emp_type_name" => $employee->emp_type_name,
         "fb_link" => $employee->fb_link,
         "img_path" => $employee->img_path,
