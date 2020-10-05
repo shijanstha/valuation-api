@@ -29,7 +29,7 @@ $file = $_FILES['img']['tmp_name'];
 
 if (
     !empty($_POST["address"]) &&
-    !empty($_POST["cost"])
+    !empty($_POST["base_rate"])
 ) {
 
     $re->address = $_POST["address"];
