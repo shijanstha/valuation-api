@@ -3,18 +3,26 @@ create realestate:
 localhost/valuation-api/real_estate/create.php  ----POST request
 {
     "address" : "real estate address",
-    "cost" : "cost",
-    "img_path" : "../uploads/real_estate.jpg"
+    "frontage" : "qwerty",
+    "area_of_property" : "qwerty",
+    "address" : "qwerty",
+    "geo_location" : "qwerty",
+    "contact" : "980182923",
+    "base_rate" : "10000",
+    "img" : "img"
 }
 
 update real_estate:
 localhost/valuation-api/real_estate/update.php  ----POST request
 {
     "re_name" : "real_estate title",
-    "address" : "real_estate description",
-    "cost" : "1000000",
-    "contact_no" : "9883384949",
-    "img_path" : "../uploads/real_estate.jpg",
+    "frontage" : "qwerty",
+    "area_of_property" : "qwerty",
+    "address" : "qwerty",
+    "geo_location" : "qwerty",
+    "contact" : "980182923",
+    "base_rate" : "10000",
+    "img" : "img"
     "id" : 1
 }
 

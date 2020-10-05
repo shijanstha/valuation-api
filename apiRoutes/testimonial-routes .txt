@@ -5,7 +5,7 @@ localhost/valuation-api/testimonial/create.php  ----POST request
     "name" : "testimonial 1",
     "address" : "address 1",
     "paragraph" : "lorem ipsum",
-    "img_path" : "/uploads/shijan.jpg"
+    "img" : "img"
 }
 
 update testimonial:
@@ -14,7 +14,7 @@ localhost/valuation-api/testimonial/update.php  ----POST request
     "name" : "testimonial 1",
     "address" : "address 1",
     "paragraph" : "lorem ipsum",
-    "img_path" : "/uploads/shijan.jpg",
+    "img" : "img",
     "status" : "AP"  ("AP", "R", "P")
     "id" : "1"
 }

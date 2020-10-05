@@ -164,6 +164,19 @@ class Employee
 
         return false;
     }
-}
 
-?>
+    function fetchEmployeeByType()
+    {
+        $query = "SELECT * FROM " . $this->table_name . " e
+                    LEFT JOIN emp_type et
+                    ON e.emp_type_id = et.emp_type_id
+                    where e.emp_type_id = ?";
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->emp_type_id);
+
+        $stmt->execute();
+        return $stmt;
+    }
+}

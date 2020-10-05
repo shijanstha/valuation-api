@@ -1,14 +1,12 @@
 Add Image:
 localhost/valuation-api/slider_image/add.php  -- POST request
 {
-    "slider_desc" : "image",
     "img_path" : "/uploads/shijan.jpg"
 }
 
 Update Image:
 localhost/valuation-api/slider_image/update.php  -- POST request
 {
-    "slider_desc" : "shijan photo",
     "img_path" : "/uploads/shijan.jpg",
     "id" : "1"
 }

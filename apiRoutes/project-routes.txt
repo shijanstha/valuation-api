@@ -4,7 +4,10 @@ localhost/valuation-api/project/create.php  ----POST request
 {
     "project_title" : "project title",
     "project_desc" : "project description",
-    "img_path" : "../uploads/project.jpg"
+    "client" : "client",
+    "address" : "address",
+    "project_cost" : "10000",
+    "img" : "img"
 }
 
 update project:
@@ -12,7 +15,10 @@ localhost/valuation-api/project/update.php  ----POST request
 {
     "project_title" : "project title 1",
     "project_desc" : "project description",
-    "img_path" : "../uploads/project.jpg",
+    "client" : "client",
+    "address" : "address",
+    "project_cost" : "10000",
+    "img" : "img",
     "id" : 1
 }
 

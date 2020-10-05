@@ -36,3 +36,9 @@ localhost/valuation-api/employee/get_all.php --- GET request
 
 get employee by id
 localhost/valuation-api/employee/get_employess.php?id=1    --- GET request
+
+get employee by employee type:
+localhost/valuation-api/employee/get_employee_by_type.php  ----POST request
+{
+    "emp_type" : 1
+}

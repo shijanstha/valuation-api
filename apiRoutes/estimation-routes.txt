@@ -1,0 +1,14 @@
+get all estimation list:
+
+localhost/valuation-api/estimation/get_estimation.php --- POST request
+
+{
+    "area_of_single_floor" : "1100",
+    "floor" : "2",
+    "bedroom" : "2",
+    "kitchen" : "1",
+    "modular_kitchen" : "Y",      // ("Y","N")
+    "sitting_room" : "2",
+    "common_bathroom" : "2",
+    "attached_bathroom" : "2"
+}

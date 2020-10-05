@@ -1,15 +1,13 @@
 Add Image:
 localhost/valuation-api/gallery/add.php  -- POST request
 {
-    "img_desc" : "image",
-    "img_path" : "/uploads/shijan.jpg"
+    "img" : "img"
 }
 
 Update Image:
 localhost/valuation-api/gallery/update.php  -- POST request
 {
-    "img_desc" : "shijan photo",
-    "img_path" : "/uploads/shijan.jpg",
+    "img" : "img",
     "id" : "1"
 }
 

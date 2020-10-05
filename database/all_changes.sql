@@ -149,7 +149,7 @@ DROP COLUMN `cost`,
 ADD COLUMN `frontage` VARCHAR(45) NULL AFTER `re_id`,
 ADD COLUMN `area_of_property` VARCHAR(45) NULL AFTER `frontage`,
 ADD COLUMN `geo_location` VARCHAR(45) NULL AFTER `address`,
-ADD COLUMN `contact` VARCHAR(45) NULL AFTER `geo-location`,
+ADD COLUMN `contact` VARCHAR(45) NULL AFTER `geo_location`,
 ADD COLUMN `base_rate` VARCHAR(45) NULL AFTER `contact`;
 
 
