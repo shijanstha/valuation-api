@@ -189,5 +189,7 @@ CREATE TABLE `client_detail` (
   `email` VARCHAR(60) NULL,
   PRIMARY KEY (`id`));
 
-ALTER TABLE `valuation`.`employee` 
+ALTER TABLE `employee` 
 ADD COLUMN `emp_desc` VARCHAR(500) NULL AFTER `fb_link`;
+
+UPDATE `estimation` SET `value` = '702000' WHERE (`name` = 'premium_sitting_room_rate');

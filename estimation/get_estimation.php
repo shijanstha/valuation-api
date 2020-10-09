@@ -50,3 +50,25 @@ if (
     http_response_code(400);
     echo json_encode(array("message" => "Unable to calculate. Data is incomplete."));
 }
+
+
+// await fetch('http://localhost/valuation-api/estimation/get_estimation.php', {
+//     method: 'POST',
+//     mode: 'no-cors',
+//     headers: { 'Content-Type': 'application/json' ,'Access-Control-Allow-Origin': '*'},
+//     body: JSON.stringify({
+//       area_of_single_floor : '1800',
+//       floor : '2',
+//       bedroom : '5',
+//       kitchen : '1',
+//       modular_kitchen : 'Y',   
+//       sitting_room: '2',
+//       common_bathroom : '2',
+//       attached_bathroom : '2'
+//     })
+// },
+// { withCredentials: true,
+//   credentials: 'same-origin',}
+//   )  .then(response => {
+//       console.log(response);
+//   })
