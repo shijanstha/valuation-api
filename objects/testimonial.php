@@ -27,7 +27,7 @@ class Testimonial
                 " . $this->table_name . " 
             ORDER BY
                 tes_id";
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -45,7 +45,7 @@ class Testimonial
                 status = 'AP'
             ORDER BY
                 tes_id";
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -63,7 +63,7 @@ class Testimonial
                 status = 'P'
             ORDER BY
                 tes_id";
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -81,7 +81,7 @@ class Testimonial
                 status = 'R'
             ORDER BY
                 tes_id";
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -203,6 +203,26 @@ class Testimonial
 
         return false;
     }
-}
 
-?>
+    function approve()
+    {
+        $query = "UPDATE " . $this->table_name . "
+                    SET
+                        status = :status
+                    WHERE tes_id = :tes_id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->tes_id = htmlspecialchars(strip_tags($this->tes_id));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+
+        $stmt->bindParam(':tes_id', $this->tes_id);
+        $stmt->bindParam(':status', $this->status);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+}
