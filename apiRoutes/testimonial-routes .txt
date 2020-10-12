@@ -26,6 +26,13 @@ localhost/valuation-api/testimonial/delete.php  ----POST request
     "id" : 1
 }
 
+approve testimonial:
+localhost/valuation-api/testimonial/approve.php  ----POST request
+{
+    "id" : 1
+}
+
+
 
 get all testimonial list:
 localhost/valuation-api/testimonial/get_all.php   ---- GET request
