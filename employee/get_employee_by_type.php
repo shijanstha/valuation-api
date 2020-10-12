@@ -16,9 +16,9 @@ $db = $database->getConnection();
 
 $employee = new Employee($db);
 
-$data = json_decode(file_get_contents("php://input"));
+// $data = json_decode(file_get_contents("php://input"));
 
-$employee->emp_type_id = $data->emp_type;
+$employee->emp_type_id = $_POST["emp_type"];
 
 $stmt = $employee->fetchEmployeeByType();
 $num = $stmt->rowCount();

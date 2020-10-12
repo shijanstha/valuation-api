@@ -21,22 +21,22 @@ $vacancy = new Vacancy($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->vacancy_title) &&
-    !empty($data->city) &&
-    !empty($data->opening) &&
-    !empty($data->experience) &&
-    !empty($data->vacancy_desc) &&
-    !empty($data->service_type) &&
-    !empty($data->expiry_dt)
+    !empty($_POST["vacancy_title"]) &&
+    !empty($_POST["city"]) &&
+    !empty($_POST["opening"]) &&
+    !empty($_POST["experience"]) &&
+    !empty($_POST["vacancy_desc"]) &&
+    !empty($_POST["service_type"]) &&
+    !empty($_POST["expiry_dt"])
 ) {
 
-    $vacancy->vacancy_title = $data->vacancy_title;
-    $vacancy->city = $data->city;
-    $vacancy->opening = $data->opening;
-    $vacancy->experience = $data->experience;
-    $vacancy->vacancy_desc = $data->vacancy_desc;
-    $vacancy->service_type = $data->service_type;
-    $vacancy->expiry_dt = $data->expiry_dt;
+    $vacancy->vacancy_title = $_POST["vacancy_title"];
+    $vacancy->city = $_POST["city"];
+    $vacancy->opening = $_POST["opening"];
+    $vacancy->experience = $_POST["experience"];
+    $vacancy->vacancy_desc = $_POST["vacancy_desc"];
+    $vacancy->service_type = $_POST["service_type"];
+    $vacancy->expiry_dt = $_POST["expiry_dt"];
 
     if ($vacancy->createVacancy()) {
         http_response_code(201);
@@ -49,4 +49,3 @@ if (
     http_response_code(400);
     echo json_encode(array("message" => "Unable to create vacancy. Data is incomplete."));
 }
-?>
