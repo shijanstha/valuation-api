@@ -55,7 +55,7 @@ class Project
         //sanitizing for sql injection
         $this->project_title = htmlspecialchars(strip_tags($this->project_title));
         $this->client = htmlspecialchars(strip_tags($this->client));
-        $this->address = htmlspecialchars(strip_tags($this->project_title));
+        $this->address = htmlspecialchars(strip_tags($this->address));
         $this->project_desc = htmlspecialchars(strip_tags($this->project_desc));
         $this->project_cost = htmlspecialchars(strip_tags($this->project_cost));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
