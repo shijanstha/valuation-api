@@ -16,17 +16,17 @@ $db = $database->getConnection();
 
 $vacancy = new Vacancy($db);
 
-// $data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"));
 
-$vacancy->vacancy_id = $_POST["id"];
+$vacancy->vacancy_id = $data->id;
 
-$vacancy->vacancy_title = $_POST["vacancy_title"];
-$vacancy->city = $_POST["city"];
-$vacancy->opening = $_POST["opening"];
-$vacancy->experience = $_POST["experience"];
-$vacancy->vacancy_desc = $_POST["vacancy_desc"];
-$vacancy->service_type = $_POST["service_type"];
-$vacancy->expiry_dt = $_POST["expiry_dt"];
+$vacancy->vacancy_title = $data->vacancy_title;
+$vacancy->city = $data->city;
+$vacancy->opening = $data->opening;
+$vacancy->experience = $data->experience;
+$vacancy->vacancy_desc = $data->vacancy_desc;
+$vacancy->service_type = $data->service_type;
+$vacancy->expiry_dt = $data->expiry_dt;
 
 if ($vacancy->update()) {
     http_response_code(200);
