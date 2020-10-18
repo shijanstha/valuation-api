@@ -23,4 +23,4 @@ get all images:
 localhost/valuation-api/slider_image/get_all.php    ---- GET request
 
 get image by id:
-localhost/valuation-api/slider_image/get_image.php?id=1  ----GET  request
+localhost/valuation-api/slider_image/get_slider.php?id=1  ----GET  request

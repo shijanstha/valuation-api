@@ -28,7 +28,8 @@ $uploadDestination = '../uploads/' . $filename;
 $file = $_FILES['img']['tmp_name'];
 
 
-$slider->slider_desc = $_POST["slider_desc"];
+// $slider->slider_desc = $_POST["slider_desc"];
+$slider->slider_desc = "hel";
 $slider->img_path = $destination;
 
 if (move_uploaded_file($file, $uploadDestination)) {
