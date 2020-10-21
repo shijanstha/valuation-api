@@ -193,3 +193,16 @@ ALTER TABLE `employee`
 ADD COLUMN `emp_desc` VARCHAR(500) NULL AFTER `fb_link`;
 
 UPDATE `estimation` SET `value` = '702000' WHERE (`name` = 'premium_sitting_room_rate');
+
+ALTER TABLE `project` 
+ADD COLUMN `completed` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `img_path`;
+
+CREATE TABLE `ex_employee` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NULL,
+  `address` VARCHAR(100) NULL,
+  `current_work` VARCHAR(200) NULL,
+  `desc` VARCHAR(500) NULL,
+  `fb_link` VARCHAR(255) NULL,
+  `img_path` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`));

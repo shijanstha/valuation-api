@@ -1,0 +1,34 @@
+create employee:
+localhost/valuation-api/ex_employee/create.php  ----POST request
+{
+    "name" : "Shijan Shrestha",
+    "address" : "Computer Engineer",
+    "current_work" : "9801200169",
+    "desc" : "shijan0408@gmail.com",
+    "fb_link" : "www/ww",
+    "img" : "img"
+}
+
+update employee:
+localhost/valuation-api/ex_employee/update.php  ----POST request
+{
+    "name" : "Shijan Shrestha",
+    "address" : "Computer Engineer",
+    "current_work" : "9801200169",
+    "desc" : "shijan0408@gmail.com",
+    "fb_link" : "www/ww",
+    "img" : "img",
+    "id" : 1
+}
+
+delete employee:
+localhost/valuation-api/ex_employee/delete.php  ----POST request
+{
+    "id" : 1
+}
+
+get all employee list:
+localhost/valuation-api/ex_employee/get_all.php --- GET request
+
+get employee by id
+localhost/valuation-api/ex_employee/get_by_id.php?id=1    --- GET request

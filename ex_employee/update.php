@@ -8,13 +8,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/project.php';
+include_once '../objects/ex_employee.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$project = new Project($db);
+$ex_employee = new ExEmployee($db);
 
 // name of file
 $filename = $_FILES['img']['name'];
@@ -26,22 +26,21 @@ $uploadDestination = '../uploads/' . $filename;
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
 
-$project->project_id = $_POST["id"];
+$ex_employee->id = $_POST["id"];
 
-$project->project_title = $_POST["project_title"];
-$project->project_desc = $_POST["project_desc"];
-$project->client = $_POST["client"];
-$project->address = $_POST["address"];
-$project->project_cost = $_POST["project_cost"];
-$project->completed = $_POST["completed"];
-$project->img_path = $destination;
+$ex_employee->name = $_POST["name"];
+$ex_employee->address = $_POST["address"];
+$ex_employee->current_work = $_POST["current_work"];
+$ex_employee->description = $_POST["description"];
+$ex_employee->fb_link = $_POST["fb_link"];
+$ex_employee->img_path = $destination;
 
 if (move_uploaded_file($file, $uploadDestination)) {
-    if ($project->update()) {
+    if ($ex_employee->update()) {
         http_response_code(200);
-        echo json_encode(array("message" => "Project detail updated."));
+        echo json_encode(array("message" => "Ex-employee Detail updated."));
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Unable to update project detail."));
+        echo json_encode(array("message" => "Unable to update Ex-employee detail."));
     }
 }

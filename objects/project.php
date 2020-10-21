@@ -15,6 +15,7 @@ class Project
     public $project_desc;
     public $project_cost;
     public $img_path;
+    public $completed;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -47,7 +48,8 @@ class Project
                     address = :address,
                     project_desc = :project_desc, 
                     project_cost = :project_cost, 
-                    img_path = :img_path
+                    img_path = :img_path,
+                    completed = :completed
                     ";
 
         $stmt = $this->conn->prepare($query);
@@ -59,6 +61,7 @@ class Project
         $this->project_desc = htmlspecialchars(strip_tags($this->project_desc));
         $this->project_cost = htmlspecialchars(strip_tags($this->project_cost));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
+        $this->completed = htmlspecialchars(strip_tags($this->completed));
 
         // bind values
         $stmt->bindParam(":project_title", $this->project_title);
@@ -67,6 +70,7 @@ class Project
         $stmt->bindParam(":project_desc", $this->project_desc);
         $stmt->bindParam(":project_cost", $this->project_cost);
         $stmt->bindParam(":img_path", $this->img_path);
+        $stmt->bindParam(":completed", $this->completed);
 
         if ($stmt->execute()) {
             return true;
@@ -100,6 +104,7 @@ class Project
         $this->project_cost = $row['project_cost'];
         $this->project_desc = $row['project_desc'];
         $this->img_path = $row['img_path'];
+        $this->completed = $row['completed'];
     }
 
     function update()
@@ -108,7 +113,11 @@ class Project
                     SET
                         project_title = :project_title,
                         project_desc = :project_desc,
-                        img_path = :img_path
+                        img_path = :img_path,
+                        client = :client,
+                        address = :address,
+                        project_cost = :project_cost,
+                        completed = :completed
 
                     WHERE project_id = :project_id";
 
@@ -121,6 +130,7 @@ class Project
         $this->project_cost = htmlspecialchars(strip_tags($this->project_cost));
         $this->project_desc = htmlspecialchars(strip_tags($this->project_desc));
         $this->img_path = htmlspecialchars(strip_tags($this->img_path));
+        $this->completed = htmlspecialchars(strip_tags($this->completed));
 
         $stmt->bindParam(':project_id', $this->project_id);
         $stmt->bindParam(':project_title', $this->project_title);
@@ -129,6 +139,7 @@ class Project
         $stmt->bindParam(':project_cost', $this->project_cost);
         $stmt->bindParam(':project_desc', $this->project_desc);
         $stmt->bindParam(':img_path', $this->img_path);
+        $stmt->bindParam(':completed', $this->completed);
 
         if ($stmt->execute()) {
             return true;
