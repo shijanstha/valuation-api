@@ -7,7 +7,7 @@ localhost/valuation-api/project/create.php  ----POST request
     "client" : "client",
     "address" : "address",
     "project_cost" : "10000",
-    "completed": "Y",
+    "status": "incompleteasdas",
     "img" : "img"
 }
 
@@ -20,7 +20,7 @@ localhost/valuation-api/project/update.php  ----POST request
     "address" : "address",
     "project_cost" : "10000",
     "img" : "img",
-    "completed": "Y",
+    "status": "incompleteasdas",
     "id" : 1
 }
 

@@ -37,7 +37,7 @@ if (
     $project->client = $_POST["client"];
     $project->address = $_POST["address"];
     $project->project_cost = $_POST["project_cost"];
-    $project->completed = $_POST["completed"];
+    $project->status = $_POST["status"];
     $project->img_path = $destination;
 
     if (move_uploaded_file($file, $uploadDestination)) {

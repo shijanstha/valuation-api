@@ -195,7 +195,7 @@ ADD COLUMN `emp_desc` VARCHAR(500) NULL AFTER `fb_link`;
 UPDATE `estimation` SET `value` = '702000' WHERE (`name` = 'premium_sitting_room_rate');
 
 ALTER TABLE `project` 
-ADD COLUMN `completed` VARCHAR(1) NOT NULL DEFAULT 'N' AFTER `img_path`;
+ADD COLUMN `status` VARCHAR(100) AFTER `img_path`;
 
 CREATE TABLE `ex_employee` (
   `id` INT NOT NULL AUTO_INCREMENT,

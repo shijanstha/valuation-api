@@ -29,7 +29,7 @@ if ($project->project_title != null) {
         "client" => $project->client,
         "address" => $project->address,
         "project_cost" => $project->project_cost,
-        "completed" => $project->completed,
+        "status" => $project->status,
         "img_path" => $project->img_path
     );
 

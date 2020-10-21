@@ -34,7 +34,7 @@ if ($num > 0) {
             "client" => $client,
             "address" => $address,
             "project_cost" => $project_cost,
-            "completed" => $completed,
+            "status" => $status,
             "img_path" => $img_path
         );
 
