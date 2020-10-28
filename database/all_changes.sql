@@ -198,11 +198,12 @@ ALTER TABLE `project`
 ADD COLUMN `status` VARCHAR(100) AFTER `img_path`;
 
 CREATE TABLE `ex_employee` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NULL,
-  `address` VARCHAR(100) NULL,
-  `current_work` VARCHAR(200) NULL,
-  `desc` VARCHAR(500) NULL,
-  `fb_link` VARCHAR(255) NULL,
-  `img_path` VARCHAR(255) NULL,
-  PRIMARY KEY (`id`));
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `current_work` varchar(200) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `fb_link` varchar(255) DEFAULT NULL,
+  `img_path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);

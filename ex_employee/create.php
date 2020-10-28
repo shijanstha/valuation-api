@@ -27,30 +27,19 @@ $uploadDestination = '../uploads/' . $filename;
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
 
-if (
-    !empty($_POST["name"]) &&
-    !empty($_POST["address"]) &&
-    !empty($_POST["current_work"]) &&
-    !empty($_POST["description"]) 
-) {
+$ex_employee->name = $_POST["name"];
+$ex_employee->address = $_POST["address"];
+$ex_employee->current_work = $_POST["current_work"];
+$ex_employee->description = $_POST["description"];
+$ex_employee->fb_link = $_POST["fb_link"];
+$ex_employee->img_path = $destination;
 
-    $ex_employee->name = $_POST["name"];
-    $ex_employee->address = $_POST["address"];
-    $ex_employee->current_work = $_POST["current_work"];
-    $ex_employee->description = $_POST["description"];
-    $ex_employee->fb_link = $_POST["fb_link"];
-    $ex_employee->img_path = $destination;
-
-    if (move_uploaded_file($file, $uploadDestination)) {
-        if ($ex_employee->createExEmployee()) {
-            http_response_code(201);
-            echo json_encode(array("message" => "Ex-employee was created."));
-        } else {
-            http_response_code(503);
-            echo json_encode(array("message" => "Unable to create Ex-employee."));
-        }
+if (move_uploaded_file($file, $uploadDestination)) {
+    if ($ex_employee->createExEmployee()) {
+        http_response_code(201);
+        echo json_encode(array("message" => "Ex-employee was created."));
+    } else {
+        http_response_code(503);
+        echo json_encode(array("message" => "Unable to create Ex-employee."));
     }
-} else {
-    http_response_code(400);
-    echo json_encode(array("message" => "Unable to create Ex-employee. Data is incomplete."));
 }

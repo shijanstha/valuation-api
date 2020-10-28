@@ -16,17 +16,25 @@ $db = $database->getConnection();
 
 $journal = new Journal($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$journal->journal_id = $_POST["id"];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $journal->fetchJournal();
+    $destination = $journal->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
-
-$journal->journal_id = $_POST["id"];
 
 $journal->title = $_POST["title"];
 $journal->summary = $_POST["summary"];
@@ -36,7 +44,17 @@ $journal->desc_3 = $_POST["desc_3"];
 $journal->desc_4 = $_POST["desc_4"];
 $journal->img_path = $destination;
 
-if (move_uploaded_file($file, $uploadDestination)) {
+if ($file != null) {
+    if (move_uploaded_file($file, $uploadDestination)) {
+        if ($journal->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Journal detail updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update journal detail."));
+        }
+    }
+} else {
     if ($journal->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Journal detail updated."));

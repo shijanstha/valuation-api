@@ -16,23 +16,42 @@ $db = $database->getConnection();
 
 $gallery = new Gallery($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$gallery->img_id = $_POST['id'];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $gallery->fetchImage();
+    $destination = $gallery->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
 
 
 if (!empty($_POST["id"])) {
-    $gallery->img_id = $_POST['id'];
     $gallery->img_desc = "";
     $gallery->img_path = $destination;
 
-    if (move_uploaded_file($file, $uploadDestination)) {
+    if ($file != null) {
+        if (move_uploaded_file($file, $uploadDestination)) {
+            if ($gallery->update()) {
+                http_response_code(200);
+                echo json_encode(array("message" => "Image detail updated."));
+            } else {
+                http_response_code(503);
+                echo json_encode(array("message" => "Unable to update image detail."));
+            }
+        }
+    } else {
         if ($gallery->update()) {
             http_response_code(200);
             echo json_encode(array("message" => "Image detail updated."));

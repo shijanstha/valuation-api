@@ -16,17 +16,26 @@ $db = $database->getConnection();
 
 $employee = new Employee($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$employee->employee_id = $_POST["id"];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $employee->fetchEmployee();
+    $destination = $employee->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
 
-$employee->employee_id = $_POST["id"];
 
 $employee->employee_name = $_POST["employee_name"];
 $employee->position = $_POST["position"];
@@ -37,7 +46,17 @@ $employee->fb_link = $_POST["fb_link"];
 $employee->emp_desc = $_POST["emp_desc"];
 $employee->img_path = $destination;
 
-if (move_uploaded_file($file, $uploadDestination)) {
+if ($file != null) {
+    if (move_uploaded_file($file, $uploadDestination)) {
+        if ($employee->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Employee Detail updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update employee detail."));
+        }
+    }
+} else {
     if ($employee->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Employee Detail updated."));

@@ -16,21 +16,40 @@ $db = $database->getConnection();
 
 $slider = new SliderImage($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$slider->slider_id = $_POST["id"];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $slider->fetchImage();
+    $destination = $slider->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
 
-$slider->slider_id = $_POST["id"];
 $slider->slider_desc = $_POST["slider_desc"];
 $slider->img_path = $destination;
 
-if (move_uploaded_file($file, $uploadDestination)) {
+if ($file != null) {
+    if (move_uploaded_file($file, $uploadDestination)) {
+        if ($slider->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Image detail updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update image detail."));
+        }
+    }
+} else {
     if ($slider->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Image detail updated."));

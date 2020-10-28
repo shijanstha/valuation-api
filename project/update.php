@@ -16,17 +16,26 @@ $db = $database->getConnection();
 
 $project = new Project($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$project->project_id = $_POST["id"];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $project->fetchProject();
+    $destination = $project->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
 
-$project->project_id = $_POST["id"];
 
 $project->project_title = $_POST["project_title"];
 $project->project_desc = $_POST["project_desc"];
@@ -36,7 +45,17 @@ $project->project_cost = $_POST["project_cost"];
 $project->status = $_POST["status"];
 $project->img_path = $destination;
 
-if (move_uploaded_file($file, $uploadDestination)) {
+if ($file != null) {
+    if (move_uploaded_file($file, $uploadDestination)) {
+        if ($project->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Project detail updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update project detail."));
+        }
+    }
+} else {
     if ($project->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Project detail updated."));

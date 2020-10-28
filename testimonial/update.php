@@ -16,17 +16,25 @@ $db = $database->getConnection();
 
 $testimonial = new Testimonial($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$testimonial->tes_id = $_POST["id"];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $testimonial->fetchTestimonial();
+    $destination = $testimonial->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
-
-$testimonial->tes_id = $_POST["id"];
 
 $testimonial->name = $_POST["name"];
 $testimonial->address = $_POST["address"];
@@ -34,7 +42,17 @@ $testimonial->paragraph = $_POST["paragraph"];
 $testimonial->status = $_POST["status"];
 $testimonial->img_path = $destination;
 
-if (move_uploaded_file($file, $uploadDestination)) {
+if ($file != null) {
+    if (move_uploaded_file($file, $uploadDestination)) {
+        if ($testimonial->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Testimonial detail updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update testimonial detail."));
+        }
+    }
+} else {
     if ($testimonial->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Testimonial detail updated."));

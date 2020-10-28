@@ -16,17 +16,25 @@ $db = $database->getConnection();
 
 $re = new RealEstate($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$destination = "";
+$uploadDestination = "";
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$re->re_id = $_POST["id"];
+
+if ($_FILES['img']['name'] != null) {
+
+    // name of file
+    $filename = $_FILES['img']['name'];
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
+} else {
+    $re->fetchRealEstate();
+    $destination = $re->img_path;
+}
 
 // the physical file on a temporary uploads directory on the server
 $file = $_FILES['img']['tmp_name'];
-
-$re->re_id = $_POST["id"];
 
 $re->address = $_POST["address"];
 $re->frontage = $_POST["frontage"];
@@ -36,7 +44,17 @@ $re->contact = $_POST["contact"];
 $re->base_rate = $_POST["base_rate"];
 $re->img_path = $destination;
 
-if (move_uploaded_file($file, $uploadDestination)) {
+if ($file != null) {
+    if (move_uploaded_file($file, $uploadDestination)) {
+        if ($re->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Real Estate Detail updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update real estate detail."));
+        }
+    }
+} else {
     if ($re->update()) {
         http_response_code(200);
         echo json_encode(array("message" => "Real Estate Detail updated."));
