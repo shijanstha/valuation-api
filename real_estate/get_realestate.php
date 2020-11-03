@@ -20,7 +20,7 @@ $re->re_id = isset($_GET['id']) ? $_GET['id'] : die();
 
 $re->fetchRealEstate();
 
-if ($re->re_name != null) {
+if ($re->re_id != null) {
     // create array
     $re_arr = array(
         "re_id" => $re->re_id,

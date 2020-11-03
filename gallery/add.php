@@ -17,26 +17,39 @@ $db = $database->getConnection();
 // initialize object
 $gallery = new Gallery($db);
 
-// name of file
-$filename = $_FILES['img']['name'];
+$fileCount = count($_FILES['img']['name']);
 
-// destination of the file on the server
-$destination = 'uploads/' . $filename;
-$uploadDestination = '../uploads/' . $filename;
+$uploadCount = 0;
 
-// the physical file on a temporary uploads directory on the server
-$file = $_FILES['img']['tmp_name'];
+for ($i = 0; $i < $fileCount; $i++) {
 
+    // name of file
+    $filename = $_FILES['img']['name'][$i];
 
-$gallery->img_desc = "";
-$gallery->img_path = $destination;
+    // destination of the file on the server
+    $destination = 'uploads/' . $filename;
+    $uploadDestination = '../uploads/' . $filename;
 
-if (move_uploaded_file($file, $uploadDestination)) {
-    if ($gallery->addImageToGallery()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "Image was added."));
-    } else {
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to add image."));
+    // the physical file on a temporary uploads directory on the server
+    $temp_file = $_FILES['img']['tmp_name'][$i];
+
+    $gallery->img_desc = "";
+    $gallery->img_path = $destination;
+
+    if (move_uploaded_file($temp_file, $uploadDestination)) {
+        if ($gallery->addImageToGallery()) {
+            $uploadCount++;
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to add image."));
+        }
     }
+}
+
+if ($uploadCount == $fileCount) {
+    http_response_code(201);
+    echo json_encode(array("message" => "{$uploadCount} image created."));
+} else {
+    http_response_code(503);
+    echo json_encode(array("message" => "Unable to create file."));
 }
