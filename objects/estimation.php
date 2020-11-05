@@ -16,7 +16,7 @@ class Estimation
         $this->conn = $db;
     }
 
-    public function getBasicEstimationRates()
+    private function getBasicEstimationRates()
     {
         $query = "SELECT 
                     MAX(CASE WHEN estimation.name= 'basic_attached_bathroom_rate' THEN estimation.value END) 'basic_attached_bathroom_rate',
@@ -37,7 +37,7 @@ class Estimation
         return $basicRates;
     }
 
-    public function getDeluxeEstimationRates()
+    private function getDeluxeEstimationRates()
     {
         $query = "SELECT 
                     MAX(CASE WHEN estimation.name= 'deluxe_attached_bathroom_rate' THEN estimation.value END) 'deluxe_attached_bathroom_rate',
@@ -58,7 +58,7 @@ class Estimation
         return $deluxeRates;
     }
 
-    public function getPremiumEstimationRates()
+    private function getPremiumEstimationRates()
     {
         $query = "SELECT 
                     MAX(CASE WHEN estimation.name= 'premium_attached_bathroom_rate' THEN estimation.value END) 'premium_attached_bathroom_rate',
@@ -86,13 +86,13 @@ class Estimation
 
         $floorAmount = (!empty($order["area_of_single_floor"]) ? $order["area_of_single_floor"] : 0) * (!empty($order["floor"]) ? $order["floor"] : 0) * $basicRates["basic_floor_rate"];
         $bedroomAmount = (!empty($order["bedroom"]) ? $order["bedroom"] : 0) * $basicRates["basic_bedroom_rate"];
-        $kitchenAmount = (!empty($order["kitchen"]) ? $order["kitchen"] : 0) * ((!empty($order["modular_kitchen"]) ? $order["modular_kitchen"] : 0) == "Y" ? $basicRates["basic_modular_kitchen_rate"] : $basicRates["basic_kitchen_rate"]);
+        $kitchenAmount = (!empty($order["kitchen"]) ? $order["kitchen"] : 0) * ($this->isModular($order["modular_kitchen"]) == 'Y' ? $basicRates["basic_modular_kitchen_rate"] : $basicRates["basic_kitchen_rate"]);
         $sittingRoomAmount = (!empty($order["sitting_room"]) ? $order["sitting_room"] : 0) * $basicRates["basic_sitting_room_rate"];
         $commonBathroomAmount = (!empty($order["common_bathroom"]) ? $order["common_bathroom"] : 0) * $basicRates["basic_common_bathroom_rate"];
         $attachedBathroomAmount = (!empty($order["attached_bathroom"]) ? $order["attached_bathroom"] : 0) * $basicRates["basic_attached_bathroom_rate"];
         $totalAmount = $floorAmount + $bedroomAmount + $kitchenAmount + $sittingRoomAmount + $commonBathroomAmount + $attachedBathroomAmount;
 
-        $basicAmounts = array(
+        return array(
             "floorAmount" => $floorAmount,
             "bedroomAmount" => $bedroomAmount,
             "kitchenAmount" => $kitchenAmount,
@@ -101,8 +101,6 @@ class Estimation
             "attachedBathroomAmount" => $attachedBathroomAmount,
             "totalAmount" => $totalAmount
         );
-
-        return $basicAmounts;
     }
 
     public function deluxeCalculation($order)
@@ -112,13 +110,13 @@ class Estimation
 
         $floorAmount = (!empty($order["area_of_single_floor"]) ? $order["area_of_single_floor"] : 0) * (!empty($order["floor"]) ? $order["floor"] : 0) * $deluxeRates["deluxe_floor_rate"];
         $bedroomAmount = (!empty($order["bedroom"]) ? $order["bedroom"] : 0) * $deluxeRates["deluxe_bedroom_rate"];
-        $kitchenAmount = (!empty($order["kitchen"]) ? $order["kitchen"] : 0) * ((!empty($order["modular_kitchen"]) ? $order["modular_kitchen"] : 0) == "Y" ? $deluxeRates["deluxe_modular_kitchen_rate"] : $deluxeRates["deluxe_kitchen_rate"]);
+        $kitchenAmount = (!empty($order["kitchen"]) ? $order["kitchen"] : 0) * ($this->isModular($order["modular_kitchen"]) == 'Y' ? $deluxeRates["deluxe_modular_kitchen_rate"] : $deluxeRates["deluxe_kitchen_rate"]);
         $sittingRoomAmount = (!empty($order["sitting_room"]) ? $order["sitting_room"] : 0) * $deluxeRates["deluxe_sitting_room_rate"];
         $commonBathroomAmount = (!empty($order["common_bathroom"]) ? $order["common_bathroom"] : 0) * $deluxeRates["deluxe_common_bathroom_rate"];
         $attachedBathroomAmount = (!empty($order["attached_bathroom"]) ? $order["attached_bathroom"] : 0) * $deluxeRates["deluxe_attached_bathroom_rate"];
         $totalAmount = $floorAmount + $bedroomAmount + $kitchenAmount + $sittingRoomAmount + $commonBathroomAmount + $attachedBathroomAmount;
 
-        $deluxeAmounts = array(
+        return array(
             "floorAmount" => $floorAmount,
             "bedroomAmount" => $bedroomAmount,
             "kitchenAmount" => $kitchenAmount,
@@ -127,8 +125,6 @@ class Estimation
             "attachedBathroomAmount" => $attachedBathroomAmount,
             "totalAmount" => $totalAmount
         );
-
-        return $deluxeAmounts;
     }
 
     public function premiumCalculation($order)
@@ -138,13 +134,13 @@ class Estimation
 
         $floorAmount = (!empty($order["area_of_single_floor"]) ? $order["area_of_single_floor"] : 0) * (!empty($order["floor"]) ? $order["floor"] : 0) * $premiumRates["premium_floor_rate"];
         $bedroomAmount = (!empty($order["bedroom"]) ? $order["bedroom"] : 0) * $premiumRates["premium_bedroom_rate"];
-        $kitchenAmount = (!empty($order["kitchen"]) ? $order["kitchen"] : 0) * ((!empty($order["modular_kitchen"]) ? $order["modular_kitchen"] : 0) == "Y" ? $premiumRates["premium_modular_kitchen_rate"] : $premiumRates["premium_kitchen_rate"]);
+        $kitchenAmount = (!empty($order["kitchen"]) ? $order["kitchen"] : 0) * ($this->isModular($order["modular_kitchen"]) == 'Y' ? $premiumRates["premium_modular_kitchen_rate"] : $premiumRates["premium_kitchen_rate"]);
         $sittingRoomAmount = (!empty($order["sitting_room"]) ? $order["sitting_room"] : 0) * $premiumRates["premium_sitting_room_rate"];
         $commonBathroomAmount = (!empty($order["common_bathroom"]) ? $order["common_bathroom"] : 0) * $premiumRates["premium_common_bathroom_rate"];
         $attachedBathroomAmount = (!empty($order["attached_bathroom"]) ? $order["attached_bathroom"] : 0) * $premiumRates["premium_attached_bathroom_rate"];
         $totalAmount = $floorAmount + $bedroomAmount + $kitchenAmount + $sittingRoomAmount + $commonBathroomAmount + $attachedBathroomAmount;
 
-        $premiumAmounts = array(
+        return array(
             "floorAmount" => $floorAmount,
             "bedroomAmount" => $bedroomAmount,
             "kitchenAmount" => $kitchenAmount,
@@ -153,7 +149,13 @@ class Estimation
             "attachedBathroomAmount" => $attachedBathroomAmount,
             "totalAmount" => $totalAmount
         );
+    }
 
-        return $premiumAmounts;
+    private function isModular($modular)
+    {
+        if (!empty($modular)) {
+            return $modular;
+        }
+        return 'N';
     }
 }

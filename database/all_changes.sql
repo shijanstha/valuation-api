@@ -207,3 +207,16 @@ CREATE TABLE `ex_employee` (
   `img_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+
+alter table client_detail
+add column area_of_single_floor int,
+add column floor int,
+add column bedroom int,
+add column kitchen int,
+add column modular_kitchen varchar(1),
+add column sitting_room int,
+add column common_bathroom int,
+add column attached_bathroom int,
+ADD COLUMN basic_total DOUBLE,
+ADD COLUMN deluxe_total DOUBLE,
+ADD COLUMN premium_total DOUBLE;

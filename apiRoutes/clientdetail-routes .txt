@@ -5,7 +5,15 @@ localhost/valuation-api/client_detail/create.php  ----POST request
     "name" : "name 1",
     "email" : "email 1",
     "contact_no" : "9887675",
-    "address" : "lorem ipsum"
+    "address" : "lorem ipsum",
+    "area_of_single_floor" : "1100",
+    "floor" : "2",
+    "bedroom" : "2",
+    "kitchen" : "1",
+    "modular_kitchen" : "Y",
+    "sitting_room" : "2",
+    "common_bathroom" : "2",
+    "attached_bathroom" : "2"
 }
 
 

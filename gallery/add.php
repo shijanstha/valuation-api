@@ -46,7 +46,7 @@ for ($i = 0; $i < $fileCount; $i++) {
     }
 }
 
-if ($uploadCount == $fileCount) {
+if ($uploadCount === $fileCount) {
     http_response_code(201);
     echo json_encode(array("message" => "{$uploadCount} image created."));
 } else {
