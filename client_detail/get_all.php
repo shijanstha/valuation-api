@@ -33,6 +33,17 @@ if ($num > 0) {
             "email" => $email,
             "contact_no" => $contact_no,
             "address" => $address,
+            "area_of_single_floor" => $area_of_single_floor,
+            "floor" => $floor,
+            "bedroom" => $bedroom,
+            "kitchen" => $kitchen,
+            "modular_kitchen" => $modular_kitchen,
+            "sitting_room" => $sitting_room,
+            "common_bathroom" => $common_bathroom,
+            "attached_bathroom" => $attached_bathroom,
+            "basic_total" => $basic_total,
+            "deluxe_total" => $deluxe_total,
+            "premium_total" => $premium_total
         );
 
         array_push($detail_arr["records"], $detail_row);

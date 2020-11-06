@@ -65,7 +65,7 @@ if (
         echo json_encode(array("message" => "Client Detail was created.", "basic" => $basicAmounts, "deluxe" => $deluxeAmounts, "premium" => $premiumAmounts));
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "Unable to create Client Detail."));
+        echo json_encode(array("message" => "Unable to create Client Detail or Estimate.."));
     }
 } else {
     http_response_code(400);

@@ -27,6 +27,17 @@ if ($clientDetail->name != null) {
         "name" => $clientDetail->name,
         "email" => $clientDetail->email,
         "address" => $clientDetail->address,
+        "area_of_single_floor" => $clientDetail->area_of_single_floor,
+        "floor" => $clientDetail->floor,
+        "bedroom" => $clientDetail->bedroom,
+        "kitchen" => $clientDetail->kitchen,
+        "modular_kitchen" => $clientDetail->modular_kitchen,
+        "sitting_room" => $clientDetail->sitting_room,
+        "common_bathroom" => $clientDetail->common_bathroom,
+        "attached_bathroom" => $clientDetail->attached_bathroom,
+        "basic_total" => $clientDetail->basic_total,
+        "deluxe_total" => $clientDetail->deluxe_total,
+        "premium_total" => $clientDetail->premium_total
     );
 
     http_response_code(200);
@@ -35,4 +46,3 @@ if ($clientDetail->name != null) {
     http_response_code(404);
     echo json_encode(array("message" => "Client Detail does not exist."));
 }
-?>
