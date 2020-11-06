@@ -20,43 +20,40 @@ $db = $database->getConnection();
 $clientDetail = new ClientDetail($db);
 $estimation = new Estimation($db);
 
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
-
 if (
-    !empty($data->name) &&
-    (!empty($data->area_of_single_floor) ||
-        !empty($data->floor) ||
-        !empty($data->bedroom) ||
-        !empty($data->kitchen) ||
-        !empty($data->modular_kitchen) ||
-        !empty($data->sitting_room) ||
-        !empty($data->common_bathroom) ||
-        !empty($data->attached_bathroom))
+    !empty($_POST["name"]) &&
+    (!empty($_POST["area_of_single_floor"]) ||
+        !empty($_POST["floor"]) ||
+        !empty($_POST["bedroom"]) ||
+        !empty($_POST["kitchen"]) ||
+        !empty($_POST["modular_kitchen"]) ||
+        !empty($_POST["sitting_room"]) ||
+        !empty($_POST["common_bathroom"]) ||
+        !empty($_POST["attached_bathroom"]))
 ) {
-    $clientDetail->name = $data->name;
-    $clientDetail->email = $data->email;
-    $clientDetail->contact_no = $data->contact_no;
-    $clientDetail->address = $data->address;
+    $clientDetail->name = $_POST["name"];
+    $clientDetail->email = $_POST["email"];
+    $clientDetail->contact_no = $_POST["contact_no"];
+    $clientDetail->address = $_POST["address"];
 
-    $clientDetail->area_of_single_floor = $data->area_of_single_floor;
-    $clientDetail->floor = $data->floor;
-    $clientDetail->bedroom = $data->bedroom;
-    $clientDetail->kitchen = $data->kitchen;
-    $clientDetail->modular_kitchen = $data->modular_kitchen;
-    $clientDetail->sitting_room = $data->sitting_room;
-    $clientDetail->common_bathroom = $data->common_bathroom;
-    $clientDetail->attached_bathroom = $data->attached_bathroom;
+    $clientDetail->area_of_single_floor = $_POST["area_of_single_floor"];
+    $clientDetail->floor = $_POST["floor"];
+    $clientDetail->bedroom = $_POST["bedroom"];
+    $clientDetail->kitchen = $_POST["kitchen"];
+    $clientDetail->modular_kitchen = $_POST["modular_kitchen"];
+    $clientDetail->sitting_room = $_POST["sitting_room"];
+    $clientDetail->common_bathroom = $_POST["common_bathroom"];
+    $clientDetail->attached_bathroom = $_POST["attached_bathroom"];
 
     $order = array(
-        "area_of_single_floor" => $data->area_of_single_floor,
-        "floor" => $data->floor,
-        "bedroom" => $data->bedroom,
-        "kitchen" => $data->kitchen,
-        "modular_kitchen" => $data->modular_kitchen,
-        "sitting_room" => $data->sitting_room,
-        "common_bathroom" => $data->common_bathroom,
-        "attached_bathroom" => $data->attached_bathroom
+        "area_of_single_floor" => $_POST["area_of_single_floor"],
+        "floor" => $_POST["floor"],
+        "bedroom" => $_POST["bedroom"],
+        "kitchen" => $_POST["kitchen"],
+        "modular_kitchen" => $_POST["modular_kitchen"],
+        "sitting_room" => $_POST["sitting_room"],
+        "common_bathroom" => $_POST["common_bathroom"],
+        "attached_bathroom" => $_POST["attached_bathroom"]
     );
 
     $basicAmounts = $estimation->basicCalculation($order);

@@ -20,24 +20,24 @@ $estimation = new Estimation($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if (
-    !empty($data->area_of_single_floor) ||
-    !empty($data->floor) ||
-    !empty($data->bedroom) ||
-    !empty($data->kitchen) ||
-    !empty($data->modular_kitchen) ||
-    !empty($data->sitting_room) ||
-    !empty($data->common_bathroom) ||
-    !empty($data->attached_bathroom)
+    !empty($_POST["area_of_single_floor"]) ||
+    !empty($_POST["floor"]) ||
+    !empty($_POST["bedroom"]) ||
+    !empty($_POST["kitchen"]) ||
+    !empty($_POST["modular_kitchen"]) ||
+    !empty($_POST["sitting_room"]) ||
+    !empty($_POST["common_bathroom"]) ||
+    !empty($_POST["attached_bathroom"])
 ) {
     $order = array(
-        "area_of_single_floor" => $data->area_of_single_floor,
-        "floor" => $data->floor,
-        "bedroom" => $data->bedroom,
-        "kitchen" => $data->kitchen,
-        "modular_kitchen" => $data->modular_kitchen,
-        "sitting_room" => $data->sitting_room,
-        "common_bathroom" => $data->common_bathroom,
-        "attached_bathroom" => $data->attached_bathroom
+        "area_of_single_floor" => $_POST["area_of_single_floor"],
+        "floor" => $_POST["floor"],
+        "bedroom" => $_POST["bedroom"],
+        "kitchen" => $_POST["kitchen"],
+        "modular_kitchen" => $_POST["modular_kitchen"],
+        "sitting_room" => $_POST["sitting_room"],
+        "common_bathroom" => $_POST["common_bathroom"],
+        "attached_bathroom" => $_POST["attached_bathroom"]
     );
 
     $basicAmounts = $estimation->basicCalculation($order);
@@ -50,25 +50,3 @@ if (
     http_response_code(400);
     echo json_encode(array("message" => "Unable to calculate. Data is incomplete."));
 }
-
-
-// await fetch('http://localhost/valuation-api/estimation/get_estimation.php', {
-//     method: 'POST',
-//     mode: 'no-cors',
-//     headers: { 'Content-Type': 'application/json' ,'Access-Control-Allow-Origin': '*'},
-//     body: JSON.stringify({
-//       area_of_single_floor : '1800',
-//       floor : '2',
-//       bedroom : '5',
-//       kitchen : '1',
-//       modular_kitchen : 'Y',   
-//       sitting_room: '2',
-//       common_bathroom : '2',
-//       attached_bathroom : '2'
-//     })
-// },
-// { withCredentials: true,
-//   credentials: 'same-origin',}
-//   )  .then(response => {
-//       console.log(response);
-//   })

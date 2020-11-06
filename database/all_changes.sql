@@ -209,7 +209,7 @@ CREATE TABLE `ex_employee` (
 );
 
 alter table client_detail
-add column area_of_single_floor int,
+add column area_of_single_floor DOUBLE,
 add column floor int,
 add column bedroom int,
 add column kitchen int,
